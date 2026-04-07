@@ -6,7 +6,7 @@ export const SITE = {
   phone: '+972-54-3300830',
   phoneDisplay: '054-3300830',
   email: 'hello@ya-ace-media.co.il',
-  founder: 'Yosia',
+  founder: 'Yossi',
   founderRole: {
     he: 'מייסד ומפתח ראשי',
     en: 'Founder & Lead Developer'
@@ -28,7 +28,7 @@ export const SITE = {
     linkedin: 'https://www.linkedin.com/in/yosia-say',
     whatsapp: 'https://wa.me/972543300830'
   },
-  founded: '2018',
+  founded: '2017',
   domains: {
     he: 'https://ya-ace-media.co.il',
     en: 'https://en.ya-ace-media.co.il'

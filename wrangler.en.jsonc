@@ -1,11 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ya-ace-media",
+  "name": "ya-ace-media-en",
   "compatibility_date": "2025-03-01",
   "workers_dev": true,
   "preview_urls": true,
   "assets": {
-    "directory": "out-he",
+    "directory": "out-en",
     "not_found_handling": "404-page",
     "html_handling": "auto-trailing-slash"
   },
@@ -13,12 +13,11 @@
     "enabled": true
   },
   "vars": {
-    "SITE_LOCALE": "he",
+    "SITE_LOCALE": "en",
     "NEXT_PUBLIC_SITE_URL_HE": "https://ya-ace-media.co.il",
     "NEXT_PUBLIC_SITE_URL_EN": "https://en.ya-ace-media.co.il"
   },
   "routes": [
-    { "pattern": "ya-ace-media.co.il", "custom_domain": true },
-    { "pattern": "www.ya-ace-media.co.il", "custom_domain": true }
+    { "pattern": "en.ya-ace-media.co.il", "custom_domain": true }
   ]
 }

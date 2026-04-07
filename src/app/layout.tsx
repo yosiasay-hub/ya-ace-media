@@ -4,8 +4,8 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages, getTranslations } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 import { JsonLd } from '@/components/seo/JsonLd';
-import { buildOrganizationJsonLd, buildWebsiteJsonLd } from '@/lib/seo';
-import { SITE, getSiteUrl } from '@/lib/site';
+import { buildOrganizationJsonLd, buildWebsiteJsonLd, buildMetadata } from '@/lib/seo';
+import { SITE } from '@/lib/site';
 import './globals.css';
 
 const heebo = Heebo({
@@ -26,10 +26,16 @@ export async function generateMetadata(): Promise<Metadata> {
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations({ locale, namespace: 'meta' });
 
+  // Default metadata for the home page. Each non-home page exports its own
+  // `metadata`/`generateMetadata` via buildMetadata() with its own `path`,
+  // which overrides the alternates / canonical / openGraph defined here.
   return {
-    metadataBase: new URL(getSiteUrl(locale)),
-    title: { default: `${t('siteName')} — ${t('tagline')}`, template: `%s | ${t('siteName')}` },
-    description: t('description'),
+    ...buildMetadata({
+      locale,
+      title: `${t('siteName')} — ${t('tagline')}`,
+      description: t('description'),
+      path: '/'
+    }),
     applicationName: SITE.name,
     authors: [{ name: SITE.founder }],
     generator: 'Next.js',
@@ -51,25 +57,16 @@ export const viewport: Viewport = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const locale = (await getLocale()) as Locale;
   const messages = await getMessages();
+  const t = await getTranslations({ locale, namespace: 'nav' });
   const dir = locale === 'he' ? 'rtl' : 'ltr';
   const fontVar = locale === 'he' ? heebo.variable : interTight.variable;
 
   return (
     <html lang={locale} dir={dir} className={`${heebo.variable} ${interTight.variable} ${fontVar}`}>
-      <head>
-        <link
-          rel="alternate"
-          hrefLang="he-IL"
-          href={getSiteUrl('he')}
-        />
-        <link
-          rel="alternate"
-          hrefLang="en-US"
-          href={getSiteUrl('en')}
-        />
-        <link rel="alternate" hrefLang="x-default" href={getSiteUrl('he')} />
-      </head>
       <body>
+        <a href="#main" className="skip-link">
+          {t('skipToMain')}
+        </a>
         <NextIntlClientProvider messages={messages} locale={locale}>
           {children}
         </NextIntlClientProvider>

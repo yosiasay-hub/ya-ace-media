@@ -1,20 +1,19 @@
 import Link from 'next/link';
-import { useTranslations, useLocale } from 'next-intl';
-import { Phone } from 'lucide-react';
-import { SITE } from '@/lib/site';
-import type { Locale } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
+import { Phone, Menu } from 'lucide-react';
+import { SITE, getOppositeLocaleUrl } from '@/lib/site';
+import { SITE_LOCALE } from '@/lib/locale';
 
 export function Header() {
   const t = useTranslations('nav');
-  const locale = useLocale() as Locale;
 
-  // MVP: single-page anchors until inner pages are built
   const links = [
-    { href: '#services', label: t('services') },
-    { href: '#case-studies', label: t('caseStudies') }
+    { href: '/services/', label: t('services') },
+    { href: '/case-studies/', label: t('caseStudies') },
+    { href: '/about/', label: t('about') }
   ];
 
-  const contactHref = '#contact';
+  const contactHref = '/#contact';
 
   return (
     <header className="sticky top-0 z-50 border-b border-[color:var(--color-ink-900)]/8 bg-white/90 backdrop-blur-md">
@@ -25,7 +24,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-8 lg:flex">
+        <nav aria-label={t('services')} className="hidden items-center gap-8 lg:flex">
           {links.map((link) => (
             <Link
               key={link.href}
@@ -41,14 +40,51 @@ export function Header() {
           <a
             href={`tel:${SITE.phone}`}
             className="hidden items-center gap-2 text-sm font-medium text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-600)] sm:flex"
-            aria-label="Call us"
+            aria-label={t('callUs')}
           >
             <Phone className="h-4 w-4" aria-hidden />
             <span>{SITE.phoneDisplay}</span>
           </a>
-          <Link href={contactHref} className="btn-primary text-sm">
+          <a
+            href={getOppositeLocaleUrl(SITE_LOCALE)}
+            className="text-sm font-medium text-[color:var(--color-ink-900)]/70 hover:text-[color:var(--color-brand-600)] transition"
+            hrefLang={SITE_LOCALE === 'he' ? 'en' : 'he'}
+            aria-label={SITE_LOCALE === 'he' ? 'Switch to English' : 'עבור לעברית'}
+          >
+            {SITE_LOCALE === 'he' ? 'EN' : 'עברית'}
+          </a>
+          <Link href={contactHref} className="btn-primary hidden text-sm sm:inline-flex">
             {t('contact')}
           </Link>
+
+          {/* Mobile menu — server-component-friendly via <details> */}
+          <details className="relative lg:hidden">
+            <summary
+              className="inline-flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-lg border border-[color:var(--color-ink-900)]/10 text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-600)] [&::-webkit-details-marker]:hidden"
+              aria-label={t('openMenu')}
+            >
+              <Menu className="h-5 w-5" aria-hidden />
+            </summary>
+            <div className="absolute end-0 mt-2 w-56 rounded-xl border border-[color:var(--color-ink-900)]/10 bg-white p-2 shadow-xl">
+              <nav aria-label={t('services')} className="flex flex-col">
+                {links.map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="rounded-md px-3 py-2.5 text-sm font-medium text-[color:var(--color-ink-900)]/85 hover:bg-[color:var(--color-brand-50)] hover:text-[color:var(--color-brand-700)]"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <Link
+                  href={contactHref}
+                  className="mt-1 rounded-md bg-[color:var(--color-brand-600)] px-3 py-2.5 text-center text-sm font-semibold text-white hover:bg-[color:var(--color-brand-700)]"
+                >
+                  {t('contact')}
+                </Link>
+              </nav>
+            </div>
+          </details>
         </div>
       </div>
     </header>

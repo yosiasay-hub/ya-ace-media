@@ -12,7 +12,12 @@
     "about": "About",
     "blog": "Blog",
     "contact": "Contact",
-    "freeAudit": "Free Audit"
+    "freeAudit": "Free Audit",
+    "callUs": "Call us",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skipToMain": "Skip to main content",
+    "breadcrumb": "Breadcrumb"
   },
   "hero": {
     "badge": "Google Premier Partner • PSI 95+ Guarantee",

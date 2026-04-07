@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /_next/
-
-Sitemap: https://ya-ace-media.co.il/sitemap.xml
-Host: https://ya-ace-media.co.il

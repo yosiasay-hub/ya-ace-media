@@ -5,11 +5,16 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:he": "node scripts/build-locale.mjs he",
+    "build:en": "node scripts/build-locale.mjs en",
+    "build:all": "npm run build:he && npm run build:en",
+    "deploy:he": "wrangler deploy",
+    "deploy:en": "wrangler deploy --config wrangler.en.jsonc",
+    "deploy:all": "npm run deploy:he && npm run deploy:en",
+    "ship": "npm run build:all && npm run deploy:all",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
   },
   "dependencies": {

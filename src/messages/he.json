@@ -12,7 +12,12 @@
     "about": "אודות",
     "blog": "בלוג",
     "contact": "צור קשר",
-    "freeAudit": "בדיקה חינם"
+    "freeAudit": "בדיקה חינם",
+    "callUs": "התקשרו אלינו",
+    "openMenu": "פתיחת תפריט",
+    "closeMenu": "סגירת תפריט",
+    "skipToMain": "דלג לתוכן הראשי",
+    "breadcrumb": "פירורי לחם"
   },
   "hero": {
     "badge": "Google Premier Partner • PSI 95+ Guarantee",

@@ -57,6 +57,26 @@
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-[color:var(--color-brand-600)];
   }
+
+  /* Skip link — visually hidden until focused, then pinned to top-start */
+  .skip-link {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+    z-index: 100;
+    padding: 0.75rem 1rem;
+    background: var(--color-brand-700);
+    color: white;
+    font-weight: 600;
+    border-radius: 0 0 0.5rem 0.5rem;
+    transform: translateY(-150%);
+    transition: transform 0.2s;
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
 }
 
 @utility container-x {
