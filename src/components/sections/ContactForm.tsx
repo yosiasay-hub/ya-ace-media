@@ -35,12 +35,11 @@ export function ContactForm() {
   async function onSubmit(data: ContactInput) {
     setState('submitting');
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, locale })
-      });
-      if (!res.ok) throw new Error('Submission failed');
+      const subject = encodeURIComponent(`${locale === 'he' ? 'פנייה חדשה מהאתר' : 'New inquiry from site'} — ${data.name}`);
+      const body = encodeURIComponent(
+        `${data.name}\n${data.email}\n${data.phone ?? ''}\n${data.company ?? ''}\n\n${data.message}`
+      );
+      window.location.href = `mailto:hello@ya-ace-media.co.il?subject=${subject}&body=${body}`;
       setState('success');
       reset();
     } catch {

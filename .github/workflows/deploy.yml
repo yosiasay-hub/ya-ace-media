@@ -1,5 +1,14 @@
 name: Deploy to Cloudflare
 
+# Static export pipeline:
+#   next build  ->  out/  ->  wrangler deploy (assets)
+#
+# NOTE: If this workflow fails at the deploy step with an error like:
+#   TypeError: Headers.append: "***\n***" is an invalid header value
+# the CLOUDFLARE_API_TOKEN repo secret has a stray newline / whitespace.
+# Fix: rotate the token at https://dash.cloudflare.com/profile/api-tokens
+# and re-paste it cleanly into the GitHub repo secret (no trailing newline).
+
 on:
   push:
     branches: [main]
@@ -19,24 +28,20 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install --no-audit --no-fund --legacy-peer-deps
+        run: npm install --legacy-peer-deps --no-audit --no-fund
 
       - name: Type check
         run: npm run typecheck
 
-      - name: Build for Cloudflare
-        run: npx opennextjs-cloudflare build
+      - name: Build static export
+        run: npm run build
         env:
           NEXT_PUBLIC_SITE_URL_HE: https://ya-ace-media.co.il
           NEXT_PUBLIC_SITE_URL_EN: https://en.ya-ace-media.co.il
 
-      - name: Verify Cloudflare auth
-        run: npx wrangler whoami
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
       - name: Deploy to Cloudflare Workers
-        run: npx opennextjs-cloudflare deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy

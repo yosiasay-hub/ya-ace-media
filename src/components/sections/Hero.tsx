@@ -6,8 +6,8 @@ export function Hero() {
   const t = useTranslations('hero');
   const locale = useLocale() as Locale;
   const Arrow = locale === 'he' ? ArrowLeft : ArrowRight;
-  const auditHref = locale === 'he' ? '/בדיקה-חינם' : '/free-audit';
-  const workHref = locale === 'he' ? '/תיקי-עבודה' : '/case-studies';
+  const auditHref = '#contact';
+  const workHref = '#case-studies';
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-[color:var(--color-brand-50)] to-white pt-12 lg:pt-20">

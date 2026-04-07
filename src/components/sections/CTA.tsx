@@ -6,7 +6,7 @@ export function CTA() {
   const t = useTranslations('cta');
   const locale = useLocale() as Locale;
   const Arrow = locale === 'he' ? ArrowLeft : ArrowRight;
-  const href = locale === 'he' ? '/בדיקה-חינם' : '/free-audit';
+  const href = '#contact';
 
   return (
     <section className="section-y">

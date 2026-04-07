@@ -15,7 +15,7 @@ export function Services() {
   const t = useTranslations('services');
 
   return (
-    <section className="section-y">
+    <section id="services" className="section-y scroll-mt-20">
       <div className="container-x">
         <div className="mx-auto max-w-2xl text-center">
           <div className="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-brand-600)]">

@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import { Phone } from 'lucide-react';
-import { LocaleSwitcher } from './LocaleSwitcher';
 import { SITE } from '@/lib/site';
 import type { Locale } from '@/i18n/routing';
 
@@ -9,25 +8,13 @@ export function Header() {
   const t = useTranslations('nav');
   const locale = useLocale() as Locale;
 
-  // Native Hebrew slugs vs English slugs
-  const links =
-    locale === 'he'
-      ? [
-          { href: '/שירותים', label: t('services') },
-          { href: '/תחומים', label: t('industries') },
-          { href: '/תיקי-עבודה', label: t('caseStudies') },
-          { href: '/אודות', label: t('about') },
-          { href: '/בלוג', label: t('blog') }
-        ]
-      : [
-          { href: '/services', label: t('services') },
-          { href: '/industries', label: t('industries') },
-          { href: '/case-studies', label: t('caseStudies') },
-          { href: '/about', label: t('about') },
-          { href: '/blog', label: t('blog') }
-        ];
+  // MVP: single-page anchors until inner pages are built
+  const links = [
+    { href: '#services', label: t('services') },
+    { href: '#case-studies', label: t('caseStudies') }
+  ];
 
-  const contactHref = locale === 'he' ? '/יצירת-קשר' : '/contact';
+  const contactHref = '#contact';
 
   return (
     <header className="sticky top-0 z-50 border-b border-[color:var(--color-ink-900)]/8 bg-white/90 backdrop-blur-md">
@@ -59,7 +46,6 @@ export function Header() {
             <Phone className="h-4 w-4" aria-hidden />
             <span>{SITE.phoneDisplay}</span>
           </a>
-          <LocaleSwitcher />
           <Link href={contactHref} className="btn-primary text-sm">
             {t('contact')}
           </Link>

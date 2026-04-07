@@ -7,14 +7,15 @@ const CLIENTS = [
   { name: 'Colorado Locksmith', url: 'https://colorado-locksmith.com', market: 'US' },
   { name: 'CO Dependable Locksmith', url: 'https://coloradodependablelocksmith.com', market: 'US' },
   { name: 'Hummus Ashkara', url: 'https://hummus-ashkara.co.il', market: 'IL' },
-  { name: 'Limor Asay', url: 'https://limorasay.co.il', market: 'IL' }
+  { name: 'Limor Asay', url: 'https://limorasay.co.il', market: 'IL' },
+  { name: 'ProtecVault', url: 'https://protecvault.com', market: 'US' }
 ];
 
 export function TrustBar() {
   const t = useTranslations('trust');
 
   return (
-    <section className="border-y border-[color:var(--color-ink-900)]/8 bg-[color:var(--color-ink-50)]/50 py-12">
+    <section id="case-studies" className="scroll-mt-20 border-y border-[color:var(--color-ink-900)]/8 bg-[color:var(--color-ink-50)]/50 py-12">
       <div className="container-x">
         <div className="text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-ink-900)]/60">
