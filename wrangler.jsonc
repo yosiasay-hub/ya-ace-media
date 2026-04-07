@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ya-ace-media",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2025-03-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL_HE": "https://ya-ace-media.co.il",
+    "NEXT_PUBLIC_SITE_URL_EN": "https://en.ya-ace-media.co.il"
+  }
+  // Secrets set via: wrangler secret put RESEND_API_KEY
+  // Routes configured in Cloudflare dashboard:
+  //   ya-ace-media.co.il/*    -> this worker
+  //   en.ya-ace-media.co.il/* -> this worker
+}

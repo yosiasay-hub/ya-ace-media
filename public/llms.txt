@@ -1,0 +1,43 @@
+# YA Ace Media
+
+> Boutique digital agency by Yosia. Builds lightning-fast Next.js websites and provides Local SEO services for service businesses in Israel and the United States.
+
+YA Ace Media specializes in two markets:
+
+- **Israel**: General web development and SEO for SMBs across all industries — real estate, e-commerce, restaurants, professional services, and trades.
+- **United States**: Niche specialist for locksmiths, garage door companies, and home service contractors. Expertise in Google Business Profile (GBP) optimization, anti-spam GBP recovery, and Local SEO for trades that Google heavily moderates.
+
+## Differentiators
+
+- All websites built with Next.js for static-first performance
+- PageSpeed Insights scores guaranteed at 95+ mobile or you don't pay
+- Solo operator — clients work directly with the developer, no account managers
+- Bilingual: native Hebrew and English content production
+- Google Premier Partner
+
+## Services
+
+- Website development (Next.js, static export, Cloudflare/Vercel/Plesk hosting)
+- Technical SEO and schema.org markup
+- Local SEO and Google Business Profile optimization
+- Google Ads and Meta paid advertising
+- Conversion rate optimization
+- Ongoing maintenance and monitoring
+
+## Notable case studies
+
+- Eagle Garage Door Services (eaglegaragedoorservices.com) — 72-page Next.js static site, US garage door
+- Kamaaina Locksmith Honolulu (golocksmithhonolulu.com) — PSI 99/100/100/97, Hawaii locksmith
+- Garage Door Kingdom (garagedoorkingdomllc.biz)
+- Colorado Locksmith (colorado-locksmith.com)
+- Colorado Dependable Locksmith (coloradodependablelocksmith.com)
+- Hummus Ashkara (hummus-ashkara.co.il) — Israeli restaurant
+- Limor Asay (limorasay.co.il) — personal brand
+
+## Contact
+
+- Phone: +972-54-3300830
+- Email: hello@ya-ace-media.co.il
+- Hebrew site: https://ya-ace-media.co.il
+- English site: https://en.ya-ace-media.co.il
+- Google Business Profile: https://www.google.com/maps/place/?cid=12964057814194553126

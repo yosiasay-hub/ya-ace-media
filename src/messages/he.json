@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "siteName": "YA Ace Media",
+    "tagline": "אתרים שגוגל אוהב. לקוחות שמתקשרים.",
+    "description": "סוכנות דיגיטל המתמחה בבניית אתרים מהירים, קידום אורגני, ו-Local SEO לעסקים קטנים ובינוניים בישראל ובארה״ב."
+  },
+  "nav": {
+    "home": "דף הבית",
+    "services": "שירותים",
+    "industries": "תחומים",
+    "caseStudies": "תיקי עבודה",
+    "about": "אודות",
+    "blog": "בלוג",
+    "contact": "צור קשר",
+    "freeAudit": "בדיקה חינם"
+  },
+  "hero": {
+    "badge": "Google Premier Partner • PSI 95+ Guarantee",
+    "title": "אתרים שגוגל אוהב.",
+    "titleHighlight": "לקוחות שמתקשרים.",
+    "subtitle": "אני בונה אתרי תדמית סטטיים ב-Next.js עם ציוני PageSpeed 95+ לעסקים שלא מתפשרים על מהירות, עיצוב, ו-SEO. תיק עבודות בינלאומי בישראל ובארה״ב.",
+    "ctaPrimary": "קבל בדיקה חינם תוך 48 שעות",
+    "ctaSecondary": "ראה את העבודות שלי",
+    "stats": {
+      "psi": "ציון PageSpeed ממוצע",
+      "clients": "לקוחות פעילים",
+      "countries": "מדינות פעילות"
+    }
+  },
+  "services": {
+    "eyebrow": "מה אני עושה",
+    "title": "פתרונות דיגיטליים שמייצרים תוצאות",
+    "subtitle": "מתמחה בכל הסטאק - מתכנון אסטרטגי ועד deploy ל-production",
+    "items": {
+      "websites": {
+        "title": "בניית אתרים",
+        "description": "אתרי Next.js סטטיים, מהירים, נגישים, מותאמים מובייל וגוגל"
+      },
+      "seo": {
+        "title": "קידום אורגני",
+        "description": "SEO טכני, מחקר מילות מפתח, schema markup, ובניית authority"
+      },
+      "localSeo": {
+        "title": "קידום מקומי",
+        "description": "GBP optimization, location pages, citations, ו-map pack rankings"
+      },
+      "ads": {
+        "title": "קידום ממומן",
+        "description": "Google Ads + Meta - ניהול קמפיינים מבוסס נתונים ותוצאות"
+      },
+      "cro": {
+        "title": "אופטימיזציית המרות",
+        "description": "ניתוח התנהגות, A/B testing, ושיפור הצעות הערך באתר"
+      },
+      "maintenance": {
+        "title": "תחזוקה וניטור",
+        "description": "ניטור uptime, אבטחה, גיבויים, ועדכונים שוטפים"
+      }
+    }
+  },
+  "trust": {
+    "title": "סומך עליי גם",
+    "subtitle": "לקוחות בישראל ובארה״ב"
+  },
+  "cta": {
+    "title": "מוכן להעלות את האתר שלך לרמה הבאה?",
+    "subtitle": "בדיקה חינם עם דוח מפורט תוך 48 שעות. ללא התחייבות.",
+    "button": "התחל עכשיו"
+  },
+  "contact": {
+    "title": "צור קשר",
+    "subtitle": "אענה תוך 24 שעות בימי חול",
+    "form": {
+      "name": "שם מלא",
+      "email": "כתובת מייל",
+      "phone": "טלפון",
+      "company": "חברה",
+      "message": "ספר לי על הפרויקט שלך",
+      "submit": "שלח הודעה",
+      "submitting": "שולח...",
+      "success": "תודה! קיבלתי את ההודעה ואחזור אליך תוך 24 שעות.",
+      "error": "אירעה שגיאה. אנא נסה שוב או התקשר ישירות."
+    }
+  },
+  "footer": {
+    "rights": "כל הזכויות שמורות",
+    "tagline": "סוכנות דיגיטל בוטיק"
+  }
+}

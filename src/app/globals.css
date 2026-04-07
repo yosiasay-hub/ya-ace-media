@@ -1,0 +1,88 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors — wink to original #0274BE, refreshed for 2026 */
+  --color-brand-50: #eef6ff;
+  --color-brand-100: #d9eaff;
+  --color-brand-200: #bcdaff;
+  --color-brand-300: #8ec3ff;
+  --color-brand-400: #59a2ff;
+  --color-brand-500: #2f7eff;
+  --color-brand-600: #0274be;  /* original brand blue, kept as anchor */
+  --color-brand-700: #015a99;
+  --color-brand-800: #064a7d;
+  --color-brand-900: #0a3e68;
+  --color-brand-950: #062742;
+
+  --color-accent-500: #ff6b1a;
+  --color-accent-600: #f04e00;
+
+  --color-ink-50: #f6f7fa;
+  --color-ink-900: #0a0e27;
+  --color-ink-950: #060818;
+
+  /* Typography */
+  --font-sans-he: "Heebo", system-ui, -apple-system, sans-serif;
+  --font-sans-en: "Inter Tight", system-ui, -apple-system, sans-serif;
+
+  /* Spacing scale extras */
+  --spacing-section: 6rem;
+  --spacing-section-sm: 4rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  html[lang="he"] {
+    font-family: var(--font-sans-he);
+  }
+
+  html[lang="en"] {
+    font-family: var(--font-sans-en);
+  }
+
+  body {
+    @apply bg-white text-[color:var(--color-ink-900)] antialiased;
+  }
+
+  ::selection {
+    @apply bg-[color:var(--color-brand-600)] text-white;
+  }
+
+  /* RTL/LTR aware focus ring */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-[color:var(--color-brand-600)];
+  }
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-y {
+    @apply py-16 sm:py-20 lg:py-24;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-primary {
+    @apply btn bg-[color:var(--color-brand-600)] text-white hover:bg-[color:var(--color-brand-700)] active:bg-[color:var(--color-brand-800)];
+  }
+
+  .btn-secondary {
+    @apply btn border border-[color:var(--color-ink-900)]/15 bg-white text-[color:var(--color-ink-900)] hover:border-[color:var(--color-brand-600)] hover:text-[color:var(--color-brand-700)];
+  }
+
+  .btn-accent {
+    @apply btn bg-[color:var(--color-accent-500)] text-white hover:bg-[color:var(--color-accent-600)];
+  }
+}

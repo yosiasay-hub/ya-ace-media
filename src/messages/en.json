@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "siteName": "YA Ace Media",
+    "tagline": "Websites Built to Rank. Built to Convert.",
+    "description": "Boutique digital agency specializing in lightning-fast websites and Local SEO for service businesses — locksmiths, garage door pros, and home service contractors."
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "industries": "Industries",
+    "caseStudies": "Case Studies",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "freeAudit": "Free Audit"
+  },
+  "hero": {
+    "badge": "Google Premier Partner • PSI 95+ Guarantee",
+    "title": "Websites Built to Rank.",
+    "titleHighlight": "Built to Convert.",
+    "subtitle": "I build static Next.js sites with 95+ PageSpeed scores for locksmiths, garage door pros, and local service businesses. Zero plugins. Zero downtime. Direct line to the builder.",
+    "ctaPrimary": "Get a Free 48-Hour Audit",
+    "ctaSecondary": "See My Work",
+    "stats": {
+      "psi": "Average PageSpeed Score",
+      "clients": "Active Clients",
+      "countries": "Countries Served"
+    }
+  },
+  "services": {
+    "eyebrow": "What I Do",
+    "title": "Digital solutions that drive measurable results",
+    "subtitle": "Full-stack expertise — from strategy to production deployment",
+    "items": {
+      "websites": {
+        "title": "Website Development",
+        "description": "Static Next.js sites — fast, accessible, mobile-first, Google-friendly"
+      },
+      "seo": {
+        "title": "Organic SEO",
+        "description": "Technical SEO, keyword research, schema markup, and authority building"
+      },
+      "localSeo": {
+        "title": "Local SEO",
+        "description": "GBP optimization, location pages, citations, and map pack dominance"
+      },
+      "ads": {
+        "title": "Paid Advertising",
+        "description": "Google Ads + Meta — data-driven campaign management with measurable ROI"
+      },
+      "cro": {
+        "title": "Conversion Optimization",
+        "description": "Behavior analysis, A/B testing, and value proposition refinement"
+      },
+      "maintenance": {
+        "title": "Maintenance & Monitoring",
+        "description": "Uptime monitoring, security, backups, and ongoing updates"
+      }
+    }
+  },
+  "trust": {
+    "title": "Trusted by",
+    "subtitle": "Service businesses across the US and Israel"
+  },
+  "cta": {
+    "title": "Ready to take your site to the next level?",
+    "subtitle": "Free audit with detailed report within 48 hours. No commitment.",
+    "button": "Get Started"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "I'll respond within 24 business hours",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone",
+      "company": "Company",
+      "message": "Tell me about your project",
+      "submit": "Send Message",
+      "submitting": "Sending...",
+      "success": "Thanks! I got your message and will reply within 24 hours.",
+      "error": "Something went wrong. Please try again or call directly."
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "tagline": "Boutique digital agency"
+  }
+}
