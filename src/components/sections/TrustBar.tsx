@@ -1,39 +1,47 @@
 import { useTranslations } from 'next-intl';
 
 const CLIENTS = [
-  { name: 'Eagle Garage Door', url: 'https://eaglegaragedoorservices.com', market: 'US' },
-  { name: 'Kamaaina Locksmith', url: 'https://golocksmithhonolulu.com', market: 'US' },
-  { name: 'Garage Door Kingdom', url: 'https://garagedoorkingdomllc.biz', market: 'US' },
-  { name: 'Colorado Locksmith', url: 'https://colorado-locksmith.com', market: 'US' },
-  { name: 'CO Dependable Locksmith', url: 'https://coloradodependablelocksmith.com', market: 'US' },
-  { name: 'Hummus Ashkara', url: 'https://hummus-ashkara.co.il', market: 'IL' },
-  { name: 'Limor Asay', url: 'https://limorasay.co.il', market: 'IL' },
-  { name: 'ProtecVault', url: 'https://protecvault.com', market: 'US' }
+  { name: 'Eagle Garage Door', url: 'https://eaglegaragedoorservices.com', market: 'US', flag: '🇺🇸' },
+  { name: 'Kamaaina Locksmith', url: 'https://golocksmithhonolulu.com', market: 'US', flag: '🇺🇸' },
+  { name: 'Garage Door Kingdom', url: 'https://garagedoorkingdomllc.biz', market: 'US', flag: '🇺🇸' },
+  { name: 'Colorado Locksmith', url: 'https://colorado-locksmith.com', market: 'US', flag: '🇺🇸' },
+  { name: 'CO Dependable Locksmith', url: 'https://coloradodependablelocksmith.com', market: 'US', flag: '🇺🇸' },
+  { name: 'Hummus Ashkara', url: 'https://hummus-ashkara.co.il', market: 'IL', flag: '🇮🇱' },
+  { name: 'Limor Asay', url: 'https://limorasay.co.il', market: 'IL', flag: '🇮🇱' },
+  { name: 'ProtecVault', url: 'https://protecvault.com', market: 'US', flag: '🇺🇸' }
 ];
 
 export function TrustBar() {
   const t = useTranslations('trust');
 
   return (
-    <section id="case-studies" className="scroll-mt-20 border-y border-[color:var(--color-ink-900)]/8 bg-[color:var(--color-ink-50)]/50 py-12">
+    <section
+      id="case-studies"
+      className="scroll-mt-20 border-y border-[color:var(--color-ink-900)]/8 bg-gradient-to-b from-white via-[color:var(--color-ink-50)]/60 to-white py-14"
+    >
       <div className="container-x">
         <div className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-ink-900)]/60">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[color:var(--color-brand-700)]">
             {t('title')}
           </p>
-          <p className="mt-1 text-sm text-[color:var(--color-ink-900)]/70">{t('subtitle')}</p>
+          <p className="mt-2 text-base text-[color:var(--color-ink-900)]/75 sm:text-lg">
+            {t('subtitle')}
+          </p>
         </div>
-        <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 lg:gap-x-12">
+
+        <ul className="mt-10 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
           {CLIENTS.map((client) => (
             <li key={client.name}>
               <a
                 href={client.url}
                 target="_blank"
                 rel="noopener nofollow"
-                className="text-sm font-semibold text-[color:var(--color-ink-900)]/60 transition-colors hover:text-[color:var(--color-brand-700)]"
+                className="group inline-flex items-center gap-2 rounded-full border border-[color:var(--color-ink-900)]/10 bg-white/80 px-4 py-2 text-sm font-semibold text-[color:var(--color-ink-900)]/75 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[color:var(--color-brand-400)] hover:bg-white hover:text-[color:var(--color-brand-700)] hover:shadow-md"
               >
-                {client.name}
-                <sup className="ms-1 text-[10px] text-[color:var(--color-ink-900)]/40">{client.market}</sup>
+                <span className="text-base leading-none" aria-hidden>
+                  {client.flag}
+                </span>
+                <span>{client.name}</span>
               </a>
             </li>
           ))}
