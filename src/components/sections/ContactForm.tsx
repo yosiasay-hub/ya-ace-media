@@ -67,8 +67,20 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-2xl space-y-5" noValidate aria-busy={state === 'submitting'}>
-      {/* Honeypot — visually hidden but still in the a11y tree (no aria-hidden on focusable input) */}
-      <div style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
+      {/* Honeypot — visually hidden without causing RTL scrollWidth overflow */}
+      <div
+        style={{
+          position: 'absolute',
+          width: '1px',
+          height: '1px',
+          padding: 0,
+          margin: '-1px',
+          overflow: 'hidden',
+          clip: 'rect(0, 0, 0, 0)',
+          whiteSpace: 'nowrap',
+          border: 0
+        }}
+      >
         <label htmlFor="cf-website">Website</label>
         <input id="cf-website" type="text" tabIndex={-1} autoComplete="off" {...register('website')} />
       </div>
