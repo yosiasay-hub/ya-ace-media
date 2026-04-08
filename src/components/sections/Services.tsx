@@ -1,11 +1,12 @@
 import { useTranslations } from 'next-intl';
-import { Code2, Search, MapPin, Megaphone, MousePointerClick, ShieldCheck } from 'lucide-react';
+import { Code2, Search, MapPin, Sparkles, Megaphone, MousePointerClick, ShieldCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 const SERVICE_KEYS = [
   { key: 'websites', icon: Code2 },
   { key: 'seo', icon: Search },
   { key: 'localSeo', icon: MapPin },
+  { key: 'geo', icon: Sparkles },
   { key: 'ads', icon: Megaphone },
   { key: 'cro', icon: MousePointerClick },
   { key: 'maintenance', icon: ShieldCheck }

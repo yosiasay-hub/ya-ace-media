@@ -23,7 +23,7 @@
     "badge": "Google Premier Partner • PSI 95+ Guarantee",
     "title": "אתרים שגוגל אוהב.",
     "titleHighlight": "לקוחות שמתקשרים.",
-    "subtitle": "אני בונה אתרי תדמית סטטיים ב-Next.js עם ציוני PageSpeed 95+ לעסקים שלא מתפשרים על מהירות, עיצוב, ו-SEO. תיק עבודות בינלאומי בישראל ובארה״ב.",
+    "subtitle": "אתרי Next.js סטטיים עם ציוני PSI 95+, SEO אורגני, Local SEO, ו-GEO (Generative Engine Optimization) — שהלקוחות ימצאו אתכם בגוגל, ב-ChatGPT, וב-Perplexity. תיק עבודות בינלאומי.",
     "ctaPrimary": "קבל בדיקה חינם תוך 48 שעות",
     "ctaSecondary": "ראה את העבודות שלי",
     "stats": {
@@ -46,8 +46,12 @@
         "description": "SEO טכני, מחקר מילות מפתח, schema markup, ובניית authority"
       },
       "localSeo": {
-        "title": "קידום מקומי",
-        "description": "GBP optimization, location pages, citations, ו-map pack rankings"
+        "title": "קידום מקומי (Local SEO)",
+        "description": "GBP optimization, דירוג ב-Map Pack, citations, ביקורות, ו-location pages שמביאות לקוחות מהאזור"
+      },
+      "geo": {
+        "title": "GEO — AI Search Optimization",
+        "description": "אופטימיזציה להופעה ב-ChatGPT, Perplexity, Google AI Overviews — Schema, Entities, ו-Answer Engine SEO"
       },
       "ads": {
         "title": "קידום ממומן",

@@ -23,7 +23,7 @@
     "badge": "Google Premier Partner • PSI 95+ Guarantee",
     "title": "Websites Built to Rank.",
     "titleHighlight": "Built to Convert.",
-    "subtitle": "I build static Next.js sites with 95+ PageSpeed scores for locksmiths, garage door pros, and local service businesses. Zero plugins. Zero downtime. Direct line to the builder.",
+    "subtitle": "Static Next.js sites with 95+ PSI scores, organic SEO, Local SEO, and GEO (Generative Engine Optimization) — so customers find you on Google, ChatGPT, and Perplexity. International portfolio.",
     "ctaPrimary": "Get a Free 48-Hour Audit",
     "ctaSecondary": "See My Work",
     "stats": {
@@ -47,7 +47,11 @@
       },
       "localSeo": {
         "title": "Local SEO",
-        "description": "GBP optimization, location pages, citations, and map pack dominance"
+        "description": "GBP optimization, Map Pack rankings, citations, reviews, and location pages that convert nearby searches"
+      },
+      "geo": {
+        "title": "GEO — AI Search Optimization",
+        "description": "Get discovered in ChatGPT, Perplexity, and Google AI Overviews — schema, entities, and answer-engine SEO"
       },
       "ads": {
         "title": "Paid Advertising",
