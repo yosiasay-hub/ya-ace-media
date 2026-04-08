@@ -45,6 +45,10 @@
     font-family: var(--font-sans-en);
   }
 
+  html, body {
+    overflow-x: clip;
+  }
+
   body {
     @apply bg-white text-[color:var(--color-ink-900)] antialiased;
   }
