@@ -87,6 +87,13 @@
     50% { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
   }
 
+  @keyframes psi-scan {
+    0%   { background-position: 0 -40%; opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { opacity: 1; }
+    100% { background-position: 0 140%; opacity: 0; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;

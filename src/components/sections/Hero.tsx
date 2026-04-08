@@ -1,6 +1,7 @@
 import { useTranslations, useLocale } from 'next-intl';
 import { ArrowLeft, ArrowRight, Sparkles, Gauge, MapPin, Bot } from 'lucide-react';
 import type { Locale } from '@/i18n/routing';
+import { PSIShowcase } from './PSIShowcase';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -114,102 +115,9 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Right — premium layered visual. Compact on mobile, full on desktop. */}
+        {/* Right — animated PSI showcase */}
         <div className="mt-12 lg:col-span-5 lg:mt-0">
-          <div className="relative mx-auto aspect-[4/3] w-full max-w-sm sm:max-w-md lg:aspect-square">
-            {/* Glow */}
-            <div
-              aria-hidden
-              className="absolute inset-0 -z-10 rounded-full opacity-40 blur-3xl sm:opacity-50"
-              style={{
-                background:
-                  'radial-gradient(circle, var(--color-brand-400), transparent 65%)'
-              }}
-            />
-
-            {/* Main PSI card */}
-            <div className="absolute inset-0 -translate-y-1 rotate-[-2deg] rounded-2xl bg-gradient-to-br from-[color:var(--color-brand-700)] via-[color:var(--color-brand-800)] to-[color:var(--color-ink-900)] p-5 shadow-2xl shadow-[color:var(--color-brand-900)]/30 sm:-translate-y-2 sm:rotate-[-3deg] sm:rounded-3xl sm:p-6">
-              <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(at_top_right,white,transparent_45%)] opacity-15 sm:rounded-3xl" />
-              <div className="relative flex h-full flex-col justify-between text-white">
-                <div className="flex items-center justify-between">
-                  <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-widest backdrop-blur sm:px-3 sm:text-[10px]">
-                    <Gauge className="h-3 w-3" aria-hidden />
-                    PageSpeed
-                  </div>
-                  <div className="text-[10px] font-mono opacity-60">●●●</div>
-                </div>
-
-                <div className="space-y-3 sm:space-y-4">
-                  <div className="flex items-end gap-2">
-                    <div className="text-[4rem] font-extrabold leading-none tracking-tight sm:text-[5.5rem]">
-                      99
-                    </div>
-                    <div className="pb-2 text-xs font-medium opacity-70 sm:pb-3 sm:text-sm">
-                      / 100
-                    </div>
-                  </div>
-                  <div className="grid grid-cols-4 gap-1.5 sm:grid-cols-2 sm:gap-2.5">
-                    {[
-                      { v: '100', l: 'A11y' },
-                      { v: '100', l: 'BP' },
-                      { v: '97', l: 'SEO' },
-                      { v: '0.8s', l: 'LCP' }
-                    ].map((m) => (
-                      <div
-                        key={m.l}
-                        className="rounded-lg border border-white/15 bg-white/10 p-1.5 backdrop-blur sm:rounded-xl sm:p-2.5"
-                      >
-                        <div className="text-sm font-bold leading-none sm:text-xl">{m.v}</div>
-                        <div className="mt-0.5 text-[9px] uppercase tracking-wider opacity-70 sm:mt-1 sm:text-[10px]">
-                          {m.l}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating chip — Local SEO / Map Pack */}
-            <div
-              className="absolute -end-2 top-4 rotate-[6deg] rounded-2xl border border-white bg-white p-2.5 shadow-xl shadow-[color:var(--color-ink-900)]/10 sm:-end-4 sm:top-8 sm:p-3"
-              style={{ animation: 'float-slow 6s ease-in-out infinite' }}
-            >
-              <div className="flex items-center gap-2">
-                <div className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-[color:var(--color-brand-500)]/15 text-[color:var(--color-brand-700)] sm:h-8 sm:w-8">
-                  <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
-                </div>
-                <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-wider text-[color:var(--color-ink-900)]/55 sm:text-[10px]">
-                    Map Pack
-                  </div>
-                  <div className="text-sm font-bold text-[color:var(--color-ink-900)] sm:text-base">
-                    #1 Rank
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Floating chip — GEO / AI Search */}
-            <div
-              className="absolute -start-3 bottom-6 -rotate-[5deg] rounded-2xl border border-white bg-white p-2.5 shadow-xl shadow-[color:var(--color-ink-900)]/10 sm:-start-6 sm:bottom-12 sm:p-3"
-              style={{ animation: 'float-slow 7s ease-in-out 1s infinite' }}
-            >
-              <div className="flex items-center gap-2">
-                <div className="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-[color:var(--color-accent-500)]/20 to-[color:var(--color-brand-500)]/20 text-[color:var(--color-accent-600)] sm:h-8 sm:w-8">
-                  <Bot className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
-                </div>
-                <div>
-                  <div className="text-[9px] font-semibold uppercase tracking-wider text-[color:var(--color-ink-900)]/55 sm:text-[10px]">
-                    AI Search
-                  </div>
-                  <div className="text-sm font-bold text-[color:var(--color-ink-900)] sm:text-base">
-                    GEO Ready
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <PSIShowcase />
         </div>
       </div>
     </section>
