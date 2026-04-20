@@ -12,14 +12,14 @@ const heebo = Heebo({
   subsets: ['hebrew', 'latin'],
   display: 'swap',
   variable: '--font-heebo',
-  weight: ['300', '400', '500', '700', '800']
+  weight: ['400', '500', '600', '700', '800']
 });
 
 const interTight = Inter_Tight({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter-tight',
-  weight: ['300', '400', '500', '700', '800']
+  weight: ['400', '500', '600', '700', '800']
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -59,10 +59,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const messages = await getMessages();
   const t = await getTranslations({ locale, namespace: 'nav' });
   const dir = locale === 'he' ? 'rtl' : 'ltr';
+  // Only apply the active locale's font variable. This lets next/font
+  // skip preloading the unused font's woff2 files at build time.
   const fontVar = locale === 'he' ? heebo.variable : interTight.variable;
 
   return (
-    <html lang={locale} dir={dir} className={`${heebo.variable} ${interTight.variable} ${fontVar}`}>
+    <html lang={locale} dir={dir} className={fontVar}>
       <body>
         <a href="#main" className="skip-link">
           {t('skipToMain')}

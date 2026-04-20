@@ -103,6 +103,7 @@ export default function ServicesIndexPage() {
                   <Link
                     key={service.slug}
                     href={`/services/${service.slug}/`}
+                    prefetch={false}
                     className="group relative flex flex-col overflow-hidden rounded-2xl border border-[color:var(--color-ink-900)]/8 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[color:var(--color-brand-300)] hover:shadow-xl"
                   >
                     <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[color:var(--color-brand-50)] text-[color:var(--color-brand-600)] transition-colors group-hover:bg-[color:var(--color-brand-600)] group-hover:text-white">

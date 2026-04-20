@@ -94,13 +94,45 @@
     100% { background-position: 0 140%; opacity: 0; }
   }
 
+  /* Scroll-linked reveal — IntersectionObserver toggles .is-visible */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+                transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal[data-delay="100"] { transition-delay: 100ms; }
+  .reveal[data-delay="200"] { transition-delay: 200ms; }
+  .reveal[data-delay="300"] { transition-delay: 300ms; }
+  .reveal[data-delay="400"] { transition-delay: 400ms; }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+    .reveal { opacity: 1; transform: none; }
   }
+}
+
+/* ─── Texture utilities ────────────────────────────────────────── */
+@utility grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @utility container-x {
@@ -117,13 +149,13 @@
 }
 
 @utility section-y {
-  padding-block: 4rem;
+  padding-block: 5rem;
 }
 @media (min-width: 640px) {
-  .section-y { padding-block: 5rem; }
+  .section-y { padding-block: 7rem; }
 }
 @media (min-width: 1024px) {
-  .section-y { padding-block: 6rem; }
+  .section-y { padding-block: 8rem; }
 }
 
 @utility btn-primary {

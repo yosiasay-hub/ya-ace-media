@@ -18,7 +18,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-[color:var(--color-ink-900)]/8 bg-white/90 backdrop-blur-md">
       <div className="container-x flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2 font-bold text-[color:var(--color-ink-900)]">
+        <Link href="/" prefetch={false} className="flex items-center gap-2 font-bold text-[color:var(--color-ink-900)]">
           <span className="text-xl tracking-tight">
             YA <span className="text-[color:var(--color-brand-600)]">Ace</span> Media
           </span>
@@ -29,6 +29,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
+              prefetch={false}
               className="text-sm font-medium text-[color:var(--color-ink-900)]/80 transition-colors hover:text-[color:var(--color-brand-600)]"
             >
               {link.label}
@@ -47,13 +48,13 @@ export function Header() {
           </a>
           <a
             href={getOppositeLocaleUrl(SITE_LOCALE)}
-            className="text-sm font-medium text-[color:var(--color-ink-900)]/70 hover:text-[color:var(--color-brand-600)] transition"
+            className="inline-flex h-11 min-w-11 items-center justify-center rounded-md px-3 text-sm font-medium text-[color:var(--color-ink-900)]/70 hover:text-[color:var(--color-brand-600)] transition"
             hrefLang={SITE_LOCALE === 'he' ? 'en' : 'he'}
             aria-label={SITE_LOCALE === 'he' ? 'Switch to English' : 'עבור לעברית'}
           >
             {SITE_LOCALE === 'he' ? 'EN' : 'עברית'}
           </a>
-          <Link href={contactHref} className="btn-primary hidden text-sm sm:inline-flex">
+          <Link href={contactHref} prefetch={false} className="btn-primary hidden text-sm sm:inline-flex">
             {t('contact')}
           </Link>
 
@@ -71,14 +72,16 @@ export function Header() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="rounded-md px-3 py-2.5 text-sm font-medium text-[color:var(--color-ink-900)]/85 hover:bg-[color:var(--color-brand-50)] hover:text-[color:var(--color-brand-700)]"
+                    prefetch={false}
+                    className="flex min-h-11 items-center rounded-md px-3 py-3 text-sm font-medium text-[color:var(--color-ink-900)]/85 hover:bg-[color:var(--color-brand-50)] hover:text-[color:var(--color-brand-700)]"
                   >
                     {link.label}
                   </Link>
                 ))}
                 <Link
                   href={contactHref}
-                  className="mt-1 rounded-md bg-[color:var(--color-brand-600)] px-3 py-2.5 text-center text-sm font-semibold text-white hover:bg-[color:var(--color-brand-700)]"
+                  prefetch={false}
+                  className="mt-1 flex min-h-11 items-center justify-center rounded-md bg-[color:var(--color-brand-600)] px-3 py-3 text-center text-sm font-semibold text-white hover:bg-[color:var(--color-brand-700)]"
                 >
                   {t('contact')}
                 </Link>

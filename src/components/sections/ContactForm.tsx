@@ -109,12 +109,12 @@ export function ContactForm() {
             />
           )}
         </Field>
-        <Field id="cf-phone" label={t('phone')} optional>
+        <Field id="cf-phone" label={t('phone')}>
           {(props) => (
             <input type="tel" autoComplete="tel" {...register('phone')} {...props} className="form-input" />
           )}
         </Field>
-        <Field id="cf-company" label={t('company')} optional>
+        <Field id="cf-company" label={t('company')}>
           {(props) => (
             <input type="text" autoComplete="organization" {...register('company')} {...props} className="form-input" />
           )}
@@ -182,17 +182,15 @@ interface FieldProps {
   id: string;
   label: string;
   error?: string;
-  optional?: boolean;
   children: (props: FieldRenderProps) => React.ReactNode;
 }
 
-function Field({ id, label, error, optional, children }: FieldProps) {
+function Field({ id, label, error, children }: FieldProps) {
   const errorId = error ? `${id}-error` : undefined;
   return (
     <div className="block">
       <label htmlFor={id} className="mb-1.5 inline-block text-sm font-medium text-[color:var(--color-ink-900)]">
         {label}
-        {optional && <span className="ms-1 text-xs text-[color:var(--color-ink-900)]/50">(optional)</span>}
       </label>
       {children({ id, 'aria-describedby': errorId })}
       {error && (

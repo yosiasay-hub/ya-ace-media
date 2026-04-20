@@ -2,6 +2,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import { ArrowLeft, ArrowRight, Sparkles, Gauge, MapPin, Bot } from 'lucide-react';
 import type { Locale } from '@/i18n/routing';
 import { PSIShowcase } from './PSIShowcase';
+import { Reveal } from '@/components/Reveal';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -45,15 +46,18 @@ export function Hero() {
         />
       </div>
 
-      <div className="container-x relative pb-16 pt-10 sm:pb-24 sm:pt-16 lg:grid lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-32 lg:pt-28">
+      <div className="container-x relative pb-20 pt-12 sm:pb-28 sm:pt-20 lg:grid lg:grid-cols-12 lg:items-center lg:gap-12 lg:pb-36 lg:pt-32">
         {/* Left — copy */}
-        <div className="lg:col-span-7">
+        <Reveal className="lg:col-span-7">
           <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--color-brand-300)]/60 bg-white/80 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)] shadow-sm backdrop-blur-md">
             <Sparkles className="h-3.5 w-3.5" aria-hidden />
             {t('badge')}
           </div>
 
-          <h1 className="mt-6 text-[2.25rem] font-extrabold leading-[1.05] tracking-tight text-[color:var(--color-ink-900)] sm:text-6xl lg:text-7xl xl:text-[5.25rem]">
+          <h1
+            className="mt-7 font-extrabold leading-[0.98] tracking-[-0.03em] text-[color:var(--color-ink-900)]"
+            style={{ fontSize: 'clamp(2.5rem, 7.5vw, 6.25rem)' }}
+          >
             {t('title')}
             <br />
             <span className="relative inline-block">
@@ -62,7 +66,7 @@ export function Hero() {
               </span>
               <span
                 aria-hidden
-                className="absolute inset-x-0 -bottom-1 h-[6px] rounded-full opacity-20"
+                className="absolute inset-x-0 -bottom-1 h-[6px] rounded-full opacity-25"
                 style={{
                   background:
                     'linear-gradient(90deg, var(--color-brand-500), var(--color-accent-500))'
@@ -71,7 +75,7 @@ export function Hero() {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-[color:var(--color-ink-900)]/75 sm:text-lg lg:max-w-2xl lg:text-xl">
+          <p className="mt-7 max-w-xl text-[15px] leading-relaxed text-[color:var(--color-ink-900)]/75 sm:text-lg lg:max-w-2xl lg:text-xl">
             {t('subtitle')}
           </p>
 
@@ -113,12 +117,12 @@ export function Hero() {
               {t('ctaSecondary')}
             </a>
           </div>
-        </div>
+        </Reveal>
 
         {/* Right — animated PSI showcase */}
-        <div className="mt-12 lg:col-span-5 lg:mt-0">
+        <Reveal delay={200} className="mt-14 lg:col-span-5 lg:mt-0">
           <PSIShowcase />
-        </div>
+        </Reveal>
       </div>
     </section>
   );

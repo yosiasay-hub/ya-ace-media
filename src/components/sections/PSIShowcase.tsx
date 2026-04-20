@@ -1,9 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Gauge, Smartphone, Monitor, MapPin, Bot } from 'lucide-react';
-
-type Device = 'mobile' | 'desktop';
+import { Gauge, Smartphone, MapPin, Bot } from 'lucide-react';
 
 interface Metrics {
   perf: number;
@@ -13,23 +11,17 @@ interface Metrics {
   lcp: number; // seconds
 }
 
-const TARGETS: Record<Device, Metrics> = {
-  mobile: { perf: 99, a11y: 100, bp: 100, seo: 100, lcp: 1.1 },
-  desktop: { perf: 100, a11y: 100, bp: 100, seo: 100, lcp: 0.6 }
-};
+const TARGET: Metrics = { perf: 99, a11y: 100, bp: 100, seo: 100, lcp: 1.1 };
 
-const ANIM_DURATION = 1400; // ms
-const SWITCH_INTERVAL = 4200; // ms — auto toggle mobile ↔ desktop
+const ANIM_DURATION = 1600; // ms
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
 
 export function PSIShowcase() {
-  const [device, setDevice] = useState<Device>('mobile');
   // Start with the target values so SSR/hydration render the real numbers
   // (no CLS, no empty state if JS fails). Animation replays from 0 after mount.
-  const [values, setValues] = useState<Metrics>(TARGETS.mobile);
+  const [values, setValues] = useState<Metrics>(TARGET);
   const [hydrated, setHydrated] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
-  const switchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reducedMotionRef = useRef(false);
 
   // After mount: detect reduced motion + kick off first animation
@@ -43,43 +35,56 @@ export function PSIShowcase() {
     setHydrated(true);
   }, []);
 
-  // Count-up animation for current device (runs whenever device changes, after hydration)
+  // Count-up animation — runs once after hydration when in viewport
   useEffect(() => {
     if (!hydrated || reducedMotionRef.current) return;
-    const target = TARGETS[device];
-    const start = Date.now();
+    const node = rootRef.current;
+    if (!node) return;
 
-    const step = () => {
-      const elapsed = Date.now() - start;
-      const t = Math.min(1, elapsed / ANIM_DURATION);
-      const e = easeOutCubic(t);
-      setValues({
-        perf: Math.round(target.perf * e),
-        a11y: Math.round(target.a11y * e),
-        bp: Math.round(target.bp * e),
-        seo: Math.round(target.seo * e),
-        lcp: +(target.lcp + (2.5 - target.lcp) * (1 - e)).toFixed(1)
-      });
-      if (t >= 1) {
-        clearInterval(intervalId);
-        setValues(target);
-      }
+    let started = false;
+    let rafId = 0;
+    const start = () => {
+      if (started) return;
+      started = true;
+      const t0 = performance.now();
+      const step = (now: number) => {
+        const elapsed = now - t0;
+        const t = Math.min(1, elapsed / ANIM_DURATION);
+        const e = easeOutCubic(t);
+        setValues({
+          perf: Math.round(TARGET.perf * e),
+          a11y: Math.round(TARGET.a11y * e),
+          bp: Math.round(TARGET.bp * e),
+          seo: Math.round(TARGET.seo * e),
+          lcp: +(TARGET.lcp + (2.5 - TARGET.lcp) * (1 - e)).toFixed(1)
+        });
+        if (t < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          setValues(TARGET);
+        }
+      };
+      rafId = requestAnimationFrame(step);
     };
-    const intervalId = setInterval(step, 40); // 25fps — smooth + tab-hidden safe
-    step(); // first frame immediately
-    return () => clearInterval(intervalId);
-  }, [device, hydrated]);
 
-  // Auto-toggle mobile ↔ desktop
-  useEffect(() => {
-    if (!hydrated || reducedMotionRef.current) return;
-    switchTimerRef.current = setTimeout(() => {
-      setDevice((d) => (d === 'mobile' ? 'desktop' : 'mobile'));
-    }, SWITCH_INTERVAL);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            start();
+            observer.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(node);
     return () => {
-      if (switchTimerRef.current) clearTimeout(switchTimerRef.current);
+      observer.disconnect();
+      if (rafId) cancelAnimationFrame(rafId);
     };
-  }, [device, hydrated]);
+  }, [hydrated]);
 
   const scoreColor = (v: number) =>
     v >= 90 ? 'text-white' : v >= 50 ? 'text-amber-300' : 'text-rose-300';
@@ -102,7 +107,7 @@ export function PSIShowcase() {
       >
         <div className="absolute inset-0 rounded-2xl bg-[radial-gradient(at_top_right,white,transparent_45%)] opacity-15 sm:rounded-3xl" />
 
-        {/* Scanning shimmer line while animating */}
+        {/* Scanning shimmer line — runs once on first viewport reveal */}
         {hydrated && !reducedMotionRef.current && (
           <div
             aria-hidden
@@ -112,48 +117,21 @@ export function PSIShowcase() {
                 'linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.12) 50%, transparent 100%)',
               backgroundSize: '100% 40%',
               backgroundRepeat: 'no-repeat',
-              animation: 'psi-scan 1.4s ease-out'
+              animation: 'psi-scan 1.6s ease-out'
             }}
-            key={device}
           />
         )}
 
         <div className="relative flex h-full flex-col justify-between text-white">
-          {/* Top bar — label + device tabs */}
+          {/* Top bar — label + mobile pill */}
           <div className="flex items-center justify-between">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[9px] font-semibold uppercase tracking-widest backdrop-blur sm:px-3 sm:text-[10px]">
               <Gauge className="h-3 w-3" aria-hidden />
               PageSpeed
             </div>
-            <div
-              role="tablist"
-              aria-label="Device"
-              className="inline-flex items-center rounded-full bg-white/10 p-0.5 text-[9px] font-semibold backdrop-blur sm:text-[10px]"
-            >
-              <button
-                type="button"
-                role="tab"
-                aria-selected={device === 'mobile'}
-                onClick={() => setDevice('mobile')}
-                className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition-colors sm:px-2.5 sm:py-1 ${
-                  device === 'mobile' ? 'bg-white text-[color:var(--color-brand-800)]' : 'text-white/70'
-                }`}
-              >
-                <Smartphone className="h-3 w-3" aria-hidden />
-                <span>Mobile</span>
-              </button>
-              <button
-                type="button"
-                role="tab"
-                aria-selected={device === 'desktop'}
-                onClick={() => setDevice('desktop')}
-                className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 transition-colors sm:px-2.5 sm:py-1 ${
-                  device === 'desktop' ? 'bg-white text-[color:var(--color-brand-800)]' : 'text-white/70'
-                }`}
-              >
-                <Monitor className="h-3 w-3" aria-hidden />
-                <span>Desktop</span>
-              </button>
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[10px] font-semibold text-[color:var(--color-brand-800)] shadow-sm sm:text-[11px]">
+              <Smartphone className="h-3 w-3" aria-hidden />
+              <span>Mobile</span>
             </div>
           </div>
 
@@ -167,7 +145,7 @@ export function PSIShowcase() {
               >
                 {values.perf}
               </div>
-              <div className="pb-2 text-xs font-medium opacity-70 sm:pb-3 sm:text-sm">/ 100</div>
+              <div className="pb-2 text-xs font-medium opacity-85 sm:pb-3 sm:text-sm">/ 100</div>
             </div>
 
             <div className="grid grid-cols-4 gap-1.5 tabular-nums sm:grid-cols-2 sm:gap-2.5">
@@ -182,7 +160,7 @@ export function PSIShowcase() {
                   className="rounded-lg border border-white/15 bg-white/10 p-1.5 backdrop-blur sm:rounded-xl sm:p-2.5"
                 >
                   <div className="text-sm font-bold leading-none sm:text-xl">{m.v}</div>
-                  <div className="mt-0.5 text-[9px] uppercase tracking-wider opacity-70 sm:mt-1 sm:text-[10px]">
+                  <div className="mt-0.5 text-[9px] uppercase tracking-wider opacity-85 sm:mt-1 sm:text-[10px]">
                     {m.l}
                   </div>
                 </div>
@@ -202,7 +180,7 @@ export function PSIShowcase() {
             <MapPin className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
           </div>
           <div>
-            <div className="text-[9px] font-semibold uppercase tracking-wider text-[color:var(--color-ink-900)]/55 sm:text-[10px]">
+            <div className="text-[9px] font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)] sm:text-[10px]">
               Map Pack
             </div>
             <div className="text-sm font-bold text-[color:var(--color-ink-900)] sm:text-base">
@@ -222,7 +200,7 @@ export function PSIShowcase() {
             <Bot className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden />
           </div>
           <div>
-            <div className="text-[9px] font-semibold uppercase tracking-wider text-[color:var(--color-ink-900)]/55 sm:text-[10px]">
+            <div className="text-[9px] font-semibold uppercase tracking-wider text-[color:var(--color-brand-700)] sm:text-[10px]">
               AI Search
             </div>
             <div className="text-sm font-bold text-[color:var(--color-ink-900)] sm:text-base">

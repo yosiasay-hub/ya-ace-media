@@ -99,6 +99,7 @@ function CaseStudyHero({ study, location }: { study: CaseStudy; location: string
         <div className="mb-6 flex items-center gap-3 text-xs font-semibold">
           <Link
             href="/case-studies/"
+            prefetch={false}
             className="text-[color:var(--color-brand-700)] hover:underline"
           >
             {COPY.backToList}

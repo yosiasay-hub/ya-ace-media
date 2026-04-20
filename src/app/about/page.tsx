@@ -228,6 +228,7 @@ export default function AboutPage() {
                 <div className="mt-8">
                   <Link
                     href="/#contact"
+                    prefetch={false}
                     className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-base font-semibold text-[color:var(--color-brand-700)] transition-all hover:bg-[color:var(--color-brand-50)] hover:shadow-2xl"
                   >
                     {COPY.ctaButton}

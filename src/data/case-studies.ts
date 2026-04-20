@@ -47,6 +47,47 @@ export interface CaseStudy {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
+    slug: '970-locksmith-fort-collins',
+    name: '970 Locksmith Fort Collins',
+    url: 'https://970locksmithservices.tech',
+    market: 'US',
+    industry: 'Locksmith',
+    city: 'Fort Collins, CO',
+    country: 'United States',
+    services: [
+      'Web development',
+      'Design',
+      'Local SEO',
+      'GBP optimization',
+      'Schema.org markup',
+    ],
+    stack: ['Responsive web', 'Schema.org JSON-LD', 'Local landing pages'],
+    metrics: [
+      { label: 'Google rating', value: '5.0 ★ (369 reviews)' },
+      { label: 'Avg. response time', value: '20 min' },
+      { label: 'Years in business', value: '8+' },
+      { label: 'Availability', value: '24/7' },
+    ],
+    description: {
+      he: 'אתר ממוקד המרות למנעולן 24/7 בפורט קולינס, קולורדו. בנייה, עיצוב וקידום SEO מקומי עם דגש על זמינות חירום, דירוג מפתח חזק ב-Map Pack, וסכמה מובנית לכל סוג שירות (מגורים, עסקי, רכב).',
+      en: 'A conversion-focused site for a 24/7 locksmith in Fort Collins, CO. Web build, design, and local SEO with an emphasis on emergency availability, strong Map Pack ranking, and service-specific schema (residential, commercial, automotive).',
+    },
+    highlights: {
+      he: [
+        'זמינות 24/7 עם emergency lockout',
+        'כיסוי פורט קולינס ולרימר קאונטי',
+        'שירותי מגורים, עסקי ורכב',
+        'מוסמך ומבוטח',
+      ],
+      en: [
+        '24/7 emergency lockout availability',
+        'Fort Collins + Larimer County coverage',
+        'Residential, commercial, and automotive',
+        'Certified and insured',
+      ],
+    },
+  },
+  {
     slug: 'eagle-garage-door',
     name: 'Eagle Garage Door Services',
     url: 'https://eaglegaragedoorservices.com',

@@ -38,7 +38,7 @@ for (const dir of [outDir, targetDir]) {
 }
 
 console.log(`[build-locale] building locale=${locale}...`);
-const result = spawnSync('npx', ['next', 'build'], {
+const result = spawnSync('npx', ['next', 'build', '--webpack'], {
   cwd: projectRoot,
   stdio: 'inherit',
   shell: true,

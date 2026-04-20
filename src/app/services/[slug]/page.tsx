@@ -115,12 +115,13 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
           />
           <div className="container-x pb-14 lg:pb-20">
             <nav aria-label={COPY.services} className="mb-8 text-sm text-[color:var(--color-ink-900)]/60">
-              <Link href="/" className="hover:text-[color:var(--color-brand-600)]">
+              <Link href="/" prefetch={false} className="hover:text-[color:var(--color-brand-600)]">
                 {COPY.home}
               </Link>
               <span className="mx-2">/</span>
               <Link
                 href="/services/"
+                prefetch={false}
                 className="hover:text-[color:var(--color-brand-600)]"
               >
                 {COPY.services}

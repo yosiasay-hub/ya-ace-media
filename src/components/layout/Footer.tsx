@@ -28,11 +28,11 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-[color:var(--color-ink-900)]">
               {t('nav.contact')}
             </h3>
-            <ul className="mt-4 space-y-3 text-sm">
+            <ul className="mt-4 space-y-1 text-sm">
               <li>
                 <a
                   href={`tel:${SITE.phone}`}
-                  className="inline-flex items-center gap-2 text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
+                  className="inline-flex min-h-11 items-center gap-2 py-2 text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
                 >
                   <Phone className="h-4 w-4" aria-hidden />
                   {SITE.phoneDisplay}
@@ -41,13 +41,13 @@ export function Footer() {
               <li>
                 <a
                   href={`mailto:${SITE.email}`}
-                  className="inline-flex items-center gap-2 text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
+                  className="inline-flex min-h-11 items-center gap-2 py-2 text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
                 >
                   <Mail className="h-4 w-4" aria-hidden />
                   {SITE.email}
                 </a>
               </li>
-              <li className="inline-flex items-center gap-2 text-[color:var(--color-ink-900)]/80">
+              <li className="inline-flex min-h-11 items-center gap-2 py-2 text-[color:var(--color-ink-900)]/80">
                 <MapPin className="h-4 w-4" aria-hidden />
                 {locale === 'he' ? 'ישראל • ארה״ב' : 'Israel • USA'}
               </li>
@@ -58,11 +58,11 @@ export function Footer() {
             <h3 className="text-sm font-semibold uppercase tracking-wider text-[color:var(--color-ink-900)]">
               {locale === 'he' ? 'מהיר' : 'Quick links'}
             </h3>
-            <ul className="mt-4 space-y-3 text-sm">
+            <ul className="mt-4 space-y-1 text-sm">
               <li>
                 <a
                   href={SITE.gbp.sameAs}
-                  className="text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
+                  className="inline-flex min-h-11 items-center py-2 text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
                   rel="noopener"
                   target="_blank"
                 >
@@ -72,7 +72,7 @@ export function Footer() {
               <li>
                 <a
                   href={SITE.social.linkedin}
-                  className="text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
+                  className="inline-flex min-h-11 items-center py-2 text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
                   rel="noopener"
                   target="_blank"
                 >
@@ -82,7 +82,7 @@ export function Footer() {
               <li>
                 <a
                   href={SITE.social.whatsapp}
-                  className="text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
+                  className="inline-flex min-h-11 items-center py-2 text-[color:var(--color-ink-900)]/80 hover:text-[color:var(--color-brand-700)]"
                   rel="noopener"
                   target="_blank"
                 >

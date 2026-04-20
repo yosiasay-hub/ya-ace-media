@@ -17,6 +17,13 @@
     "typecheck": "tsc --noEmit",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
   },
+  "browserslist": [
+    "chrome >= 90",
+    "edge >= 90",
+    "firefox >= 90",
+    "safari >= 14",
+    "ios_saf >= 14"
+  ],
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
     "@react-email/components": "^0.0.31",
