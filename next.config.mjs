@@ -20,6 +20,16 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'motion']
   },
+  // Turbopack (Next 16 default) — alias Next's polyfill-module to an empty stub.
+  // Our browserslist targets ES2022+ browsers that already support all of these
+  // (Array.prototype.at/flat/flatMap, Object.fromEntries/hasOwn, String trimStart/trimEnd).
+  turbopack: {
+    root: __dirname,
+    resolveAlias: {
+      'next/dist/build/polyfills/polyfill-module': emptyPolyfill,
+      'next/dist/build/polyfills/polyfill-module.js': emptyPolyfill
+    }
+  },
   images: {
     unoptimized: true
   },
@@ -28,12 +38,22 @@ const nextConfig = {
   // The nomodule polyfills file still ships for legacy browsers via the noModule script tag.
   webpack: (config, { isServer, webpack }) => {
     if (!isServer) {
-      // Replace the polyfill-module file at resolve time with our empty stub.
-      // We use NormalModuleReplacementPlugin because resolve.alias doesn't catch
-      // the relative require inside next/dist/client/app-globals.js.
+      // Neutralize ALL of Next.js's polyfills (polyfill-module and anything else
+      // under the polyfills/ directory) for client bundles. Our browserslist targets
+      // ES2022+ browsers that already support Array.prototype.at/flat/flatMap,
+      // Object.fromEntries/hasOwn, String.prototype.trimStart/trimEnd, etc.
+      // The legacy polyfill-nomodule script still ships via the noModule tag for
+      // browsers that actually need it.
       config.plugins.push(
         new webpack.NormalModuleReplacementPlugin(
-          /[\\/]next[\\/]dist[\\/]build[\\/]polyfills[\\/]polyfill-module(\.js)?$/,
+          /[\\/]next[\\/]dist[\\/]build[\\/]polyfills[\\/](polyfill-module|polyfill-nomodule|object-assign|process)(\.js)?$/,
+          emptyPolyfill
+        )
+      );
+      // Also replace any bare request for "next/dist/build/polyfills/polyfill-module".
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(
+          /^next[\\/]dist[\\/]build[\\/]polyfills[\\/]polyfill-module(\.js)?$/,
           emptyPolyfill
         )
       );

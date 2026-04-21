@@ -63,8 +63,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // skip preloading the unused font's woff2 files at build time.
   const fontVar = locale === 'he' ? heebo.variable : interTight.variable;
 
+  // Explicit preload hint for the primary font woff2 — the one Next/font serves
+  // for the active locale's "regular" weight. These filenames are deterministic
+  // per next/font build; if they change, update here. The `-s.p.` suffix marks
+  // the subset+preload variant Next.js already emits <link rel="preload"> for,
+  // so this acts as a redundant high-priority hint for Cloudflare edge caching.
+  const primaryFontHref =
+    locale === 'he'
+      ? '/_next/static/media/1c9ef42b327f16c7-s.p.045a486d.woff2'
+      : '/en/_next/static/media/ab57efd000576a30-s.p.37015d44.woff2';
+
   return (
     <html lang={locale} dir={dir} className={fontVar}>
+      <head>
+        <link
+          rel="preload"
+          href={primaryFontHref}
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body>
         <a href="#main" className="skip-link">
           {t('skipToMain')}

@@ -18,14 +18,15 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
+    "postinstall": "node scripts/strip-next-polyfills.mjs"
   },
   "browserslist": [
-    "chrome >= 90",
-    "edge >= 90",
-    "firefox >= 90",
-    "safari >= 14",
-    "ios_saf >= 14"
+    "chrome >= 110",
+    "edge >= 110",
+    "firefox >= 110",
+    "safari >= 16",
+    "ios_saf >= 16"
   ],
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
