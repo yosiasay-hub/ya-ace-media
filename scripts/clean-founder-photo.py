@@ -1,4 +1,12 @@
-"""Remove Gemini watermarks from founder portrait via targeted inpainting."""
+"""Remove Gemini watermarks from founder portrait via precision mask + inpaint.
+
+Strategy v2 — tighter mask:
+- Detect anomalous pixels in the top-left region (watermark squares differ in
+  luminance/chroma from the smooth gray background).
+- Mask ONLY those small blobs (not a huge rectangle), so the surrounding
+  gradient is preserved and no blurry halo appears above the head.
+- Bottom-right sparkle: small targeted circle.
+"""
 import cv2
 import numpy as np
 from pathlib import Path
@@ -13,36 +21,59 @@ if img is None:
 h, w = img.shape[:2]
 print(f"src: {w}x{h}")
 
-# Build inpainting mask for watermark regions.
-# The Gemini grid watermark in top-left sits within a bounding box of roughly:
-#   x: 350..1300  (about 19% to 73% across)
-#   y: 80..420    (about 3% to 18% down)
-# And the tiny diamond/sparkle near the shirt at roughly (1690, 2230), ~30px radius.
-mask = np.zeros((h, w), dtype=np.uint8)
+# ---------- Top-left watermark: anomaly detection ----------
+# Scan window: upper band where watermark can appear (above shoulders).
+# Keep it conservative: x up to 85% (covers full top), y up to 25% of height.
+band = np.zeros((h, w), dtype=np.uint8)
+band[0:int(h * 0.27), 0:int(w * 0.85)] = 255
 
-# Top-left grid watermark — generous rectangle
-cv2.rectangle(mask, (int(w * 0.18), int(h * 0.025)),
-              (int(w * 0.75), int(h * 0.20)), 255, -1)
+# Exclude the head/face region (roughly centred around x=0.55w, y=0.35h, radius=0.22w).
+# But head is BELOW y=0.27h mostly (face starts around y=0.25h). The top band above
+# shoulder is safe — add extra safety by excluding a head-silhouette wedge.
+cv2.ellipse(band, (int(w * 0.56), int(h * 0.46)), (int(w * 0.34), int(h * 0.42)),
+            0, 0, 360, 0, -1)
 
-# Bottom-right sparkle on shirt — small circle
-cv2.circle(mask, (int(w * 0.945), int(h * 0.935)), 55, 255, -1)
+# Gray-scale, smooth, diff against a heavily blurred version of the same region.
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+blur = cv2.GaussianBlur(gray, (81, 81), 0)
+diff = cv2.absdiff(gray, blur)
 
-# Dilate slightly so the inpaint grabs enough context
-mask = cv2.dilate(mask, np.ones((5, 5), np.uint8), iterations=2)
+# In the clean gray bg, diff is very low (~0–3). Watermark squares diff ~6–15.
+# Threshold captures squares without catching natural noise.
+_, anomaly = cv2.threshold(diff, 5, 255, cv2.THRESH_BINARY)
+anomaly = cv2.bitwise_and(anomaly, band)
 
-cleaned = cv2.inpaint(img, mask, 9, cv2.INPAINT_TELEA)
+# Drop small specks of natural grain
+kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+anomaly = cv2.morphologyEx(anomaly, cv2.MORPH_OPEN, kernel, iterations=1)
 
-# Optional: another pass with NS for smoother blend on the large region
-cleaned = cv2.inpaint(cleaned, mask, 9, cv2.INPAINT_NS)
+# Dilate a touch so inpaint has context
+anomaly = cv2.dilate(anomaly, np.ones((7, 7), np.uint8), iterations=2)
+
+# ---------- Bottom-right sparkle ----------
+sparkle = np.zeros((h, w), dtype=np.uint8)
+cv2.circle(sparkle, (int(w * 0.945), int(h * 0.935)), 55, 255, -1)
+sparkle = cv2.dilate(sparkle, np.ones((5, 5), np.uint8), iterations=1)
+
+mask = cv2.bitwise_or(anomaly, sparkle)
+
+# Save mask for debug (optional)
+cv2.imwrite(str(OUT_DIR / "_mask-debug.png"), mask)
+
+cleaned = cv2.inpaint(img, mask, 5, cv2.INPAINT_TELEA)
+# Second pass only on bottom-right for smoother blend on shirt
+cleaned = cv2.inpaint(cleaned, sparkle, 5, cv2.INPAINT_NS)
+
+# Light smoothing of the top background gradient (blends any minor residue)
+top = cleaned[0:int(h * 0.27), :]
+top_smooth = cv2.bilateralFilter(top, 9, 40, 40)
+cleaned[0:int(h * 0.27), :] = top_smooth
 
 OUT_DIR.mkdir(parents=True, exist_ok=True)
-
-# Save the master JPG at quality 90 (good for hero portrait)
-cv2.imwrite(str(OUT), cleaned, [cv2.IMWRITE_JPEG_QUALITY, 90, cv2.IMWRITE_JPEG_PROGRESSIVE, 1])
+cv2.imwrite(str(OUT), cleaned, [cv2.IMWRITE_JPEG_QUALITY, 92, cv2.IMWRITE_JPEG_PROGRESSIVE, 1])
 print(f"wrote {OUT} ({OUT.stat().st_size / 1024:.1f} KB)")
 
-# Also emit a small WebP for the responsive srcset (Next.js with unoptimized images
-# — we'll emit multiple sizes manually).
+# Responsive variants
 from PIL import Image
 pil = Image.fromarray(cv2.cvtColor(cleaned, cv2.COLOR_BGR2RGB))
 for target_w, suffix in [(640, "-sm"), (1024, "-md"), (1600, "-lg")]:
@@ -51,10 +82,9 @@ for target_w, suffix in [(640, "-sm"), (1024, "-md"), (1600, "-lg")]:
     resized = pil.resize((target_w, target_h), Image.LANCZOS)
     path_jpg = OUT_DIR / f"yossi-founder{suffix}.jpg"
     path_webp = OUT_DIR / f"yossi-founder{suffix}.webp"
-    resized.save(path_jpg, "JPEG", quality=86, progressive=True, optimize=True)
-    resized.save(path_webp, "WEBP", quality=82, method=6)
+    resized.save(path_jpg, "JPEG", quality=88, progressive=True, optimize=True)
+    resized.save(path_webp, "WEBP", quality=84, method=6)
     print(f"wrote {path_jpg.name} + {path_webp.name} ({target_w}x{target_h})")
 
-# Master WebP
-pil.save(OUT_DIR / "yossi-founder.webp", "WEBP", quality=85, method=6)
+pil.save(OUT_DIR / "yossi-founder.webp", "WEBP", quality=86, method=6)
 print("done")
