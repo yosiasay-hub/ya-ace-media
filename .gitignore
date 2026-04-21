@@ -46,3 +46,11 @@ cloudflare-env.d.ts
 # IDE
 .vscode/
 .idea/
+
+
+# Build outputs
+/dist/
+/dist-he/
+/dist-en/
+/out/
+

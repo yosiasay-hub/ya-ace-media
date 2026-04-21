@@ -29,17 +29,33 @@ export const SITE = {
     whatsapp: 'https://wa.me/972543300830'
   },
   founded: '2017',
-  domains: {
-    he: 'https://ya-ace-media.co.il',
-    en: 'https://en.ya-ace-media.co.il'
+  // Unified single-domain architecture. HE at apex, EN under /en/*.
+  baseUrl: 'https://ya-ace-media.co.il',
+  localePaths: {
+    he: '',
+    en: '/en'
   }
 } as const;
 
+/**
+ * Returns the locale "root" URL.
+ * - he → https://ya-ace-media.co.il
+ * - en → https://ya-ace-media.co.il/en
+ */
 export function getSiteUrl(locale: Locale): string {
-  return SITE.domains[locale];
+  return `${SITE.baseUrl}${SITE.localePaths[locale]}`;
 }
 
-export function getOppositeLocaleUrl(locale: Locale, path: string = ''): string {
+/**
+ * Returns the absolute URL for a path within the given locale.
+ * getAbsoluteUrl('en', '/about/') → https://ya-ace-media.co.il/en/about/
+ */
+export function getAbsoluteUrl(locale: Locale, path: string = '/'): string {
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  return `${SITE.baseUrl}${SITE.localePaths[locale]}${normalized}`;
+}
+
+export function getOppositeLocaleUrl(locale: Locale, path: string = '/'): string {
   const opposite: Locale = locale === 'he' ? 'en' : 'he';
-  return `${SITE.domains[opposite]}${path}`;
+  return getAbsoluteUrl(opposite, path);
 }
