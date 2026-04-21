@@ -4,6 +4,8 @@ import { Footer } from '@/components/layout/Footer';
 import { CASE_STUDIES, type CaseStudy } from '@/data/case-studies';
 import { SITE_LOCALE } from '@/lib/locale';
 import { buildMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { buildBreadcrumbJsonLd, buildItemListJsonLd } from '@/lib/schemas';
 
 const ARROW = SITE_LOCALE === 'he' ? '←' : '→';
 const HOVER_TRANSLATE = SITE_LOCALE === 'he' ? 'group-hover:-translate-x-1' : 'group-hover:translate-x-1';
@@ -36,9 +38,34 @@ export const metadata = buildMetadata({
   path: '/case-studies/'
 });
 
+const NAV_LABELS = {
+  he: { home: 'דף הבית', caseStudies: 'תיקי עבודה' },
+  en: { home: 'Home', caseStudies: 'Case Studies' }
+}[SITE_LOCALE];
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbJsonLd({
+  locale: SITE_LOCALE,
+  segments: [
+    { label: NAV_LABELS.home, path: '/' },
+    { label: NAV_LABELS.caseStudies, path: '/case-studies/' }
+  ]
+});
+
+const ITEM_LIST_SCHEMA = buildItemListJsonLd({
+  locale: SITE_LOCALE,
+  listPath: '/case-studies/',
+  name: COPY.title,
+  items: CASE_STUDIES.map((study) => ({
+    name: study.name,
+    path: `/case-studies/${study.slug}/`,
+    description: study.description[SITE_LOCALE]
+  }))
+});
+
 export default function CaseStudiesIndexPage() {
   return (
     <>
+      <JsonLd data={[BREADCRUMB_SCHEMA, ITEM_LIST_SCHEMA]} />
       <Header />
       <main id="main">
         <section className="relative overflow-hidden bg-gradient-to-b from-[color:var(--color-brand-50)] to-white pt-16 lg:pt-24">

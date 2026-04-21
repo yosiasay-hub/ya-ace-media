@@ -6,6 +6,14 @@ import { Footer } from '@/components/layout/Footer';
 import { CASE_STUDIES, type CaseStudy } from '@/data/case-studies';
 import { SITE_LOCALE } from '@/lib/locale';
 import { buildMetadata } from '@/lib/seo';
+import { SITE } from '@/lib/site';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { buildBreadcrumbJsonLd } from '@/lib/schemas';
+
+const NAV_LABELS = {
+  he: { home: 'דף הבית', caseStudies: 'תיקי עבודה' },
+  en: { home: 'Home', caseStudies: 'Case Studies' }
+}[SITE_LOCALE];
 
 const COPY = {
   he: {
@@ -50,9 +58,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { slug } = await params;
   const study = CASE_STUDIES.find((s) => s.slug === slug);
   if (!study) return { title: 'Case Study' };
+  const suffix =
+    SITE_LOCALE === 'he'
+      ? ` | תיק עבודות ${SITE.name}`
+      : ` | ${SITE.name} Case Study`;
   return buildMetadata({
     locale: SITE_LOCALE,
-    title: study.name,
+    title: `${study.name}${suffix}`,
     description: study.description[SITE_LOCALE],
     path: `/case-studies/${slug}/`
   });
@@ -65,8 +77,18 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
   const location = study.city ? `${study.city}, ${study.country}` : study.country;
 
+  const breadcrumbSchema = buildBreadcrumbJsonLd({
+    locale: SITE_LOCALE,
+    segments: [
+      { label: NAV_LABELS.home, path: '/' },
+      { label: NAV_LABELS.caseStudies, path: '/case-studies/' },
+      { label: study.name, path: `/case-studies/${slug}/` }
+    ]
+  });
+
   return (
     <>
+      <JsonLd data={breadcrumbSchema} />
       <Header />
       <main id="main">
         <CaseStudyHero study={study} location={location} />

@@ -5,6 +5,9 @@ import { Footer } from '@/components/layout/Footer';
 import { ABOUT } from '@/data/about-content';
 import { SITE_LOCALE } from '@/lib/locale';
 import { buildMetadata } from '@/lib/seo';
+import { SITE } from '@/lib/site';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { buildBreadcrumbJsonLd, buildPersonJsonLd } from '@/lib/schemas';
 
 const Arrow = SITE_LOCALE === 'he' ? ArrowLeft : ArrowRight;
 
@@ -37,10 +40,43 @@ const COPY = {
   }
 }[SITE_LOCALE];
 
+const META = {
+  he: {
+    title: `אודות | ${SITE.name}`,
+    description:
+      'יוסי, מייסד YA Ace Media — מפתח Next.js ומומחה Local SEO עם למעלה מעשור ניסיון בבניית אתרים מהירים לעסקים בישראל ובארה״ב.'
+  },
+  en: {
+    title: `About | ${SITE.name}`,
+    description:
+      'Meet Yossi, founder of YA Ace Media — Next.js developer and Local SEO specialist with 10+ years of experience building fast, conversion-focused websites for US and Israeli businesses.'
+  }
+}[SITE_LOCALE];
+
 export const metadata = buildMetadata({
   locale: SITE_LOCALE,
-  title: SITE_LOCALE === 'he' ? 'אודות' : 'About',
-  description: ABOUT.founder.bioShort[SITE_LOCALE],
+  title: META.title,
+  description: META.description,
+  path: '/about/'
+});
+
+const NAV_LABELS = {
+  he: { home: 'דף הבית', about: 'אודות' },
+  en: { home: 'Home', about: 'About' }
+}[SITE_LOCALE];
+
+const BREADCRUMB_SCHEMA = buildBreadcrumbJsonLd({
+  locale: SITE_LOCALE,
+  segments: [
+    { label: NAV_LABELS.home, path: '/' },
+    { label: NAV_LABELS.about, path: '/about/' }
+  ]
+});
+
+const PERSON_SCHEMA = buildPersonJsonLd({
+  locale: SITE_LOCALE,
+  name: ABOUT.founder.name,
+  jobTitle: ABOUT.founder.role[SITE_LOCALE],
   path: '/about/'
 });
 
@@ -50,6 +86,7 @@ export default function AboutPage() {
 
   return (
     <>
+      <JsonLd data={[BREADCRUMB_SCHEMA, PERSON_SCHEMA]} />
       <Header />
       <main id="main">
         {/* Hero header */}

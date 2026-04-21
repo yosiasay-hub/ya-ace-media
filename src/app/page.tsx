@@ -10,13 +10,25 @@ import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
 import { AboutTeaser } from '@/components/sections/AboutTeaser';
 import { Reveal } from '@/components/Reveal';
 import { MobileFloatingCTA } from '@/components/MobileFloatingCTA';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { JsonLd } from '@/components/seo/JsonLd';
+import { buildFaqPageJsonLd } from '@/lib/schemas';
+import { SITE_LOCALE } from '@/lib/locale';
 
-export default function HomePage() {
-  const t = useTranslations('contact');
+interface RawFaqItem {
+  q: string;
+  a: string;
+}
+
+export default async function HomePage() {
+  const t = await getTranslations('contact');
+  const tFaq = await getTranslations('faq');
+  const rawItems = tFaq.raw('items') as RawFaqItem[];
+  const faqs = rawItems.map((item) => ({ question: item.q, answer: item.a }));
 
   return (
     <>
+      <JsonLd data={buildFaqPageJsonLd({ locale: SITE_LOCALE, faqs, path: '/' })} />
       <Header />
       <main id="main">
         <Hero />

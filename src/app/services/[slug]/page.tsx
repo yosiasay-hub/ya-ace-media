@@ -20,6 +20,12 @@ import { Footer } from '@/components/layout/Footer';
 import { SERVICES } from '@/data/services-content';
 import { SITE_LOCALE } from '@/lib/locale';
 import { buildMetadata } from '@/lib/seo';
+import { JsonLd } from '@/components/seo/JsonLd';
+import {
+  buildBreadcrumbJsonLd,
+  buildFaqPageJsonLd,
+  buildServiceJsonLd
+} from '@/lib/schemas';
 
 const Arrow = SITE_LOCALE === 'he' ? ArrowLeft : ArrowRight;
 
@@ -77,9 +83,11 @@ export async function generateMetadata({ params }: ServicePageProps): Promise<Me
   const { slug } = await params;
   const service = SERVICES.find((s) => s.slug === slug);
   if (!service) return {};
+  // Per-service title includes site suffix for unique ~60-char titles.
+  const siteSuffix = SITE_LOCALE === 'he' ? ' | YA Ace Media' : ' | YA Ace Media';
   return buildMetadata({
     locale: SITE_LOCALE,
-    title: service.title[SITE_LOCALE],
+    title: `${service.title[SITE_LOCALE]}${siteSuffix}`,
     description: service.shortDescription[SITE_LOCALE],
     path: `/services/${slug}/`
   });
@@ -99,8 +107,41 @@ export default async function ServiceDetailPage({ params }: ServicePageProps) {
     .map((p) => p.trim())
     .filter(Boolean);
 
+  const breadcrumbSchema = buildBreadcrumbJsonLd({
+    locale: SITE_LOCALE,
+    segments: [
+      { label: COPY.home, path: '/' },
+      { label: COPY.services, path: '/services/' },
+      { label: service.title[SITE_LOCALE], path: `/services/${slug}/` }
+    ]
+  });
+
+  const serviceSchema = buildServiceJsonLd({
+    locale: SITE_LOCALE,
+    slug,
+    name: service.title[SITE_LOCALE],
+    description: service.shortDescription[SITE_LOCALE],
+    serviceType: service.title[SITE_LOCALE]
+  });
+
+  const schemas: Array<Record<string, unknown>> = [breadcrumbSchema, serviceSchema];
+
+  if (service.faqs.length > 0) {
+    schemas.push(
+      buildFaqPageJsonLd({
+        locale: SITE_LOCALE,
+        path: `/services/${slug}/`,
+        faqs: service.faqs.map((f) => ({
+          question: f.question[SITE_LOCALE],
+          answer: f.answer[SITE_LOCALE]
+        }))
+      })
+    );
+  }
+
   return (
     <>
+      <JsonLd data={schemas} />
       <Header />
       <main id="main">
         {/* Hero */}
