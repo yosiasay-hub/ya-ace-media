@@ -3,6 +3,7 @@ import { Reveal } from '@/components/Reveal';
 
 const CLIENTS = [
   { name: 'Eagle Garage Door', url: 'https://eaglegaragedoorservices.com', market: 'US', flag: '🇺🇸' },
+  { name: 'Eagle Locksmith Maryland', url: 'https://www.eaglelocksmithservice.com', market: 'US', flag: '🇺🇸' },
   { name: 'Kamaaina Locksmith', url: 'https://golocksmithhonolulu.com', market: 'US', flag: '🇺🇸' },
   { name: 'Garage Door Kingdom', url: 'https://garagedoorkingdomllc.biz', market: 'US', flag: '🇺🇸' },
   { name: 'Colorado Locksmith', url: 'https://colorado-locksmith.com', market: 'US', flag: '🇺🇸' },
