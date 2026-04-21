@@ -5,6 +5,9 @@ import { Services } from '@/components/sections/Services';
 import { TrustBar } from '@/components/sections/TrustBar';
 import { CTA } from '@/components/sections/CTA';
 import { ContactForm } from '@/components/sections/ContactForm';
+import { FAQ } from '@/components/sections/FAQ';
+import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
+import { AboutTeaser } from '@/components/sections/AboutTeaser';
 import { Reveal } from '@/components/Reveal';
 import { MobileFloatingCTA } from '@/components/MobileFloatingCTA';
 import { useTranslations } from 'next-intl';
@@ -19,6 +22,9 @@ export default function HomePage() {
         <Hero />
         <TrustBar />
         <Services />
+        <PortfolioPreview />
+        <AboutTeaser />
+        <FAQ />
         <CTA />
         <section id="contact" className="section-y bg-[color:var(--color-ink-50)]/40">
           <div className="container-x">

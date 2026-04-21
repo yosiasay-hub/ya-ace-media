@@ -10,7 +10,7 @@ export function Hero() {
   const Arrow = locale === 'he' ? ArrowLeft : ArrowRight;
 
   return (
-    <section className="relative isolate overflow-hidden bg-white">
+    <section className="relative isolate grain overflow-hidden bg-white">
       {/* Premium background — layered gradient mesh + orbs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div
@@ -60,8 +60,8 @@ export function Hero() {
           >
             {t('title')}
             <br />
-            <span className="relative inline-block">
-              <span className="bg-gradient-to-br from-[color:var(--color-brand-500)] via-[color:var(--color-brand-600)] to-[color:var(--color-brand-900)] bg-clip-text text-transparent">
+            <span className="relative inline-block italic tracking-tighter">
+              <span className="bg-gradient-to-br from-[color:var(--color-brand-400)] via-[color:var(--color-brand-600)] to-[color:var(--color-brand-900)] bg-clip-text text-transparent">
                 {t('titleHighlight')}
               </span>
               <span
