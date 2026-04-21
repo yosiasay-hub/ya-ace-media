@@ -61,22 +61,60 @@ export function buildMetadata({
   };
 }
 
-export function buildOrganizationJsonLd(locale: Locale) {
+export function buildOrganizationJsonLd(locale: Locale): Record<string, unknown> {
+  // Stable @id — single canonical entity regardless of locale.
+  const orgId = `${SITE.baseUrl}#organization`;
+
   return {
     '@context': 'https://schema.org',
-    '@type': 'ProfessionalService',
-    '@id': `${getSiteUrl(locale)}#organization`,
+    // Dual-typed so the node satisfies both ProfessionalService consumers
+    // and LocalBusiness requirements (opening hours, priceRange, geo).
+    '@type': ['ProfessionalService', 'LocalBusiness'],
+    '@id': orgId,
     name: SITE.name,
     legalName: SITE.legalName,
     url: getSiteUrl(locale),
-    logo: `${getSiteUrl(locale)}/logo.png`,
-    image: `${getSiteUrl(locale)}/og-default.png`,
+    logo: `${SITE.baseUrl}/logo.png`,
+    image: `${SITE.baseUrl}/og-default.png`,
     telephone: SITE.phone,
     email: SITE.email,
+    priceRange: '₪₪ / $$',
     foundingDate: SITE.founded,
     founder: { '@type': 'Person', name: SITE.founder },
     areaServed: SITE.areaServed.map((a) => ({ '@type': 'Country', name: a.name })),
-    geo: { '@type': 'GeoCoordinates', latitude: SITE.gbp.geo.lat, longitude: SITE.gbp.geo.lng },
+    serviceArea: {
+      '@type': 'GeoCircle',
+      geoMidpoint: {
+        '@type': 'GeoCoordinates',
+        latitude: SITE.gbp.geo.lat,
+        longitude: SITE.gbp.geo.lng
+      },
+      // ~13,000 km radius — covers IL + US service territory.
+      geoRadius: 13000000
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: SITE.gbp.geo.lat,
+      longitude: SITE.gbp.geo.lng
+    },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+        opens: '09:00',
+        closes: '18:00'
+      }
+    ],
+    contactPoint: [
+      {
+        '@type': 'ContactPoint',
+        telephone: SITE.phone,
+        email: SITE.email,
+        contactType: 'customer support',
+        areaServed: SITE.areaServed.map((a) => a.code),
+        availableLanguage: ['he', 'en']
+      }
+    ],
     sameAs: [SITE.gbp.sameAs, SITE.social.facebook, SITE.social.linkedin],
     knowsAbout: [
       'Web Development',
@@ -90,14 +128,26 @@ export function buildOrganizationJsonLd(locale: Locale) {
   };
 }
 
-export function buildWebsiteJsonLd(locale: Locale) {
+export function buildWebsiteJsonLd(locale: Locale): Record<string, unknown> {
+  // Stable @id across locales — single WebSite entity for the whole domain.
+  const websiteId = `${SITE.baseUrl}#website`;
+  const orgId = `${SITE.baseUrl}#organization`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    '@id': `${getSiteUrl(locale)}#website`,
+    '@id': websiteId,
     url: getSiteUrl(locale),
     name: SITE.name,
-    publisher: { '@id': `${getSiteUrl(locale)}#organization` },
-    inLanguage: locale === 'he' ? 'he-IL' : 'en-US'
+    publisher: { '@id': orgId },
+    inLanguage: locale === 'he' ? 'he-IL' : 'en-US',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${getSiteUrl(locale)}/?q={search_term_string}`
+      },
+      'query-input': 'required name=search_term_string'
+    }
   };
 }
