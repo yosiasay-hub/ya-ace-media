@@ -47,6 +47,47 @@ export interface CaseStudy {
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
+    slug: 'eagle-locksmith-maryland',
+    name: 'Eagle Locksmith Service',
+    url: 'https://www.eaglelocksmithservice.com',
+    market: 'US',
+    industry: 'Locksmith',
+    city: 'Beltsville, MD',
+    country: 'United States',
+    services: [
+      'Web development',
+      'Design',
+      'Local SEO',
+      'GBP optimization',
+      'Schema.org markup',
+    ],
+    stack: ['WordPress', 'LocalBusiness + Service schema', 'Multi-channel contact (phone, WhatsApp, email)'],
+    metrics: [
+      { label: 'Google rating', value: '4.6 ★ (326 reviews)' },
+      { label: 'Response time', value: '15–30 min' },
+      { label: 'Years in business', value: '12+' },
+      { label: 'Coverage', value: 'DC / MD / N. Virginia (40-mi)' },
+    ],
+    description: {
+      he: 'אתר המרות למנעולן 24/7 בבלטסוויל, מרילנד, עם כיסוי DC + צפון וירג\'יניה ברדיוס 40 מייל. בנייה, עיצוב וקידום Local SEO עם דגש על חירום מהיר (15–30 דק׳), רישוי ואמינות (Maryland #176, Virginia #11-15205, MHIC #117311) וסכמה מובנית ל-LocalBusiness + Service.',
+      en: 'A conversion-focused site for a 24/7 locksmith in Beltsville, MD covering DC + Northern Virginia within a 40-mile radius. Web build, design, and Local SEO with an emphasis on fast emergency response (15–30 min), licensing/trust signals (MD #176, VA #11-15205, MHIC #117311), and LocalBusiness + Service schema.',
+    },
+    highlights: {
+      he: [
+        'זמינות 24/7/365 עם זמן הגעה של 15–30 דק׳',
+        'רישוי במרילנד, וירג\'יניה ו-MHIC',
+        'שירותי מגורים, עסקי ורכב + מנעולים חכמים',
+        'רב-לשוני: אנגלית, ספרדית, ASL',
+      ],
+      en: [
+        '24/7/365 availability with 15–30 min ETA',
+        'Licensed in MD, VA, and MHIC-registered',
+        'Residential, commercial, automotive + smart locks',
+        'Multilingual: English, Spanish, ASL',
+      ],
+    },
+  },
+  {
     slug: '970-locksmith-fort-collins',
     name: '970 Locksmith Fort Collins',
     url: 'https://970locksmithservices.tech',

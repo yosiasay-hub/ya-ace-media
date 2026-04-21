@@ -34,7 +34,8 @@
   },
   "services": {
     "eyebrow": "What I Do",
-    "title": "Digital solutions that drive measurable results",
+    "title": "Digital solutions",
+    "titleHighlight": "that deliver results",
     "subtitle": "Full-stack expertise — from strategy to production deployment",
     "items": {
       "websites": {
@@ -75,6 +76,89 @@
     "title": "Ready to take your site to the next level?",
     "subtitle": "Free audit with detailed report within 48 hours. No commitment.",
     "button": "Get Started"
+  },
+  "portfolioPreview": {
+    "eyebrow": "Case Studies",
+    "title": "Selected",
+    "titleHighlight": "projects",
+    "subtitle": "A few of the sites I've built and scaled for service businesses across the US and Israel — each one engineered for speed, search visibility, and measurable conversions.",
+    "viewAll": "All projects",
+    "viewLive": "View live",
+    "items": {
+      "eagleGarageDoor": {
+        "title": "Eagle Garage Door Services",
+        "location": "Maryland, USA",
+        "blurb": "Hierarchical location pages for 30+ cities, aggressive organic SEO, and lead gen that dropped acquisition cost meaningfully.",
+        "psi": "92"
+      },
+      "kamaainaLocksmith": {
+        "title": "Kama'aina Locksmith",
+        "location": "Honolulu, Hawaii",
+        "blurb": "Local-first branding for an isolated high-loyalty market. Heavy mobile call volume and uncontested presence on 'Honolulu locksmith' searches.",
+        "psi": "99"
+      },
+      "locksmith970": {
+        "title": "970 Locksmith Fort Collins",
+        "location": "Colorado, USA",
+        "blurb": "Static Next.js site purpose-built for urgent conversions. Perfect PSI scores and #1 rankings on city-critical keywords.",
+        "psi": "100"
+      }
+    }
+  },
+  "aboutTeaser": {
+    "eyebrow": "About",
+    "title": "A one-man",
+    "titleHighlight": "digital boutique",
+    "body": "I'm Yossi — developer, marketer, and former lecturer at Israel's John Bryce college. Building fast Next.js sites and growing local businesses in Israel and the US since 2017. You work directly with me, not with an account manager forwarding messages.",
+    "cta": "Read the full story",
+    "stats": {
+      "years": "Years in business",
+      "yearsValue": "8+",
+      "clients": "Active clients",
+      "clientsValue": "11",
+      "markets": "Markets",
+      "marketsValue": "IL + US"
+    }
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "The questions",
+    "titleHighlight": "you ask most",
+    "subtitle": "Pricing, timelines, how we work — everything upfront, in plain English.",
+    "items": [
+      {
+        "q": "How long before I see SEO results?",
+        "a": "Initial improvement in 2–4 months. In highly competitive markets (US locksmiths, garage door) meaningful results take 6–12 months of consistent work. I don't promise magic — just a methodology that works."
+      },
+      {
+        "q": "How much does it cost?",
+        "a": "Static Next.js sites start at $2,500 and scale with scope. Monthly Local SEO from $500/month. Paid ads — 10–15% management fee on ad spend. Every quote is tailored after a discovery call, never a generic package."
+      },
+      {
+        "q": "Why Next.js instead of WordPress?",
+        "a": "Static Next.js loads in milliseconds, hits PSI 95+ out of the box, and has no WordPress-style security holes. Hosting is free or near-free (Cloudflare Pages), content updates ship via Git, and you fully own the codebase."
+      },
+      {
+        "q": "What's GEO and does it actually matter?",
+        "a": "Generative Engine Optimization — being cited by Google AI Overviews, ChatGPT, Perplexity, and Claude. When a prospect asks 'who's the best locksmith in Colorado?', GEO-ready brands are the ones quoted. It's already happening, and it's growing fast."
+      },
+      {
+        "q": "Do you work with clients abroad?",
+        "a": "Yes — more than half my clients are in the US (Maryland, Colorado, Florida, Hawaii). English support, English reporting, and Zoom calls on your timezone. Deep specialty in locksmiths and garage door techs."
+      },
+      {
+        "q": "Is there a long-term contract?",
+        "a": "No annual contracts. Monthly Local SEO — cancel with 30 days notice. Website builds — milestone-based (50% to start, 50% on delivery). You own the code, the domain, and every account. No vendor lock-in."
+      },
+      {
+        "q": "Do you do WordPress?",
+        "a": "I maintain WordPress for legacy clients, but new sites I build exclusively in Next.js. It's better for everyone — faster, more secure, cheaper to maintain."
+      },
+      {
+        "q": "Is there a guarantee?",
+        "a": "Yes. PSI 95+ mobile performance is guaranteed in writing — if I don't hit it within 30 days of launch, full refund. I don't guarantee search rankings (nobody honest can), but I guarantee the methodology and transparent monthly reporting."
+      }
+    ]
   },
   "contact": {
     "title": "Get in Touch",

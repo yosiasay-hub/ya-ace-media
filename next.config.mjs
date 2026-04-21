@@ -6,12 +6,17 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const emptyPolyfill = resolve(__dirname, 'scripts/empty-polyfill.js');
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
+// Unified deploy: HE at root (/), EN under /en/* — one Cloudflare Pages project.
+// Build HE with no basePath, EN with basePath='/en'. Merge outputs in scripts/build-unified.mjs.
+const isEnglishBuild = process.env.NEXT_PUBLIC_SITE_LOCALE === 'en';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
   reactStrictMode: true,
   poweredByHeader: false,
   trailingSlash: true,
+  ...(isEnglishBuild ? { basePath: '/en', assetPrefix: '/en' } : {}),
   experimental: {
     optimizePackageImports: ['lucide-react', 'motion']
   },
