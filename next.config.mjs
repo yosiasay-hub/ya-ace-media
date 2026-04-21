@@ -20,7 +20,10 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['lucide-react', 'motion'],
     // Inline critical CSS via Critters/Beasties → removes render-blocking stylesheet link.
-    optimizeCss: true
+    optimizeCss: true,
+    // Inline <link rel="stylesheet"> into <style> tag in <head>, eliminating the
+    // HTML → CSS → Font dependency chain that was costing ~617ms LCP.
+    inlineCss: true
   },
   // Turbopack (Next 16 default) — alias Next's polyfill-module to an empty stub.
   // Our browserslist targets ES2022+ browsers that already support all of these

@@ -1,13 +1,23 @@
+import dynamic from 'next/dynamic';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { Services } from '@/components/sections/Services';
 import { TrustBar } from '@/components/sections/TrustBar';
 import { CTA } from '@/components/sections/CTA';
-import { ContactForm } from '@/components/sections/ContactForm';
-import { FAQ } from '@/components/sections/FAQ';
-import { PortfolioPreview } from '@/components/sections/PortfolioPreview';
-import { AboutTeaser } from '@/components/sections/AboutTeaser';
+
+// Below-the-fold sections — code-split to reduce initial JS by ~45 KiB.
+// react-hook-form + zod only ship when ContactForm is reached via scroll.
+const ContactForm = dynamic(() =>
+  import('@/components/sections/ContactForm').then((m) => ({ default: m.ContactForm }))
+);
+const FAQ = dynamic(() => import('@/components/sections/FAQ').then((m) => ({ default: m.FAQ })));
+const PortfolioPreview = dynamic(() =>
+  import('@/components/sections/PortfolioPreview').then((m) => ({ default: m.PortfolioPreview }))
+);
+const AboutTeaser = dynamic(() =>
+  import('@/components/sections/AboutTeaser').then((m) => ({ default: m.AboutTeaser }))
+);
 import { Reveal } from '@/components/Reveal';
 import { MobileFloatingCTA } from '@/components/MobileFloatingCTA';
 import { getTranslations } from 'next-intl/server';
