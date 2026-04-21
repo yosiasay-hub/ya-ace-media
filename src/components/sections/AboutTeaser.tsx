@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import type { Locale } from '@/i18n/routing';
@@ -30,32 +31,23 @@ export function AboutTeaser() {
                 aria-hidden
                 className="absolute inset-0 -rotate-3 rounded-[2rem] bg-gradient-to-br from-[color:var(--color-brand-500)] via-[color:var(--color-brand-700)] to-[color:var(--color-ink-950)] shadow-2xl shadow-[color:var(--color-brand-900)]/30"
               />
-              {/* Foreground card */}
-              <div
-                className="relative flex h-full w-full items-end overflow-hidden rounded-[2rem] bg-gradient-to-br from-[color:var(--color-ink-900)] via-[color:var(--color-brand-900)] to-[color:var(--color-brand-700)] p-8 shadow-2xl"
-                style={{
-                  backgroundImage:
-                    'radial-gradient(circle at 70% 20%, color-mix(in srgb, var(--color-brand-400) 50%, transparent) 0%, transparent 50%), linear-gradient(135deg, var(--color-ink-900), var(--color-brand-800) 60%, var(--color-brand-700))'
-                }}
-              >
-                {/* Grain overlay */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 opacity-20 mix-blend-overlay"
-                  style={{
-                    backgroundImage:
-                      "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")"
-                  }}
+              {/* Foreground card — real founder photo */}
+              <div className="relative flex h-full w-full items-end overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-[color:var(--color-ink-900)]/10">
+                <Image
+                  src="/yossi-founder.jpg"
+                  alt="Yossi — Founder, YA Ace Media"
+                  fill
+                  sizes="(min-width: 1024px) 440px, (min-width: 640px) 400px, 90vw"
+                  className="object-cover"
+                  priority={false}
                 />
-                {/* Monogram */}
+                {/* Bottom gradient for text legibility */}
                 <div
                   aria-hidden
-                  className="absolute start-8 top-8 font-mono text-[11rem] font-black leading-none tracking-tighter text-white/10"
-                >
-                  Y
-                </div>
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/80 via-black/30 to-transparent"
+                />
                 {/* Footer card */}
-                <div className="relative w-full rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-md">
+                <div className="relative m-5 w-full rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-md">
                   <div className="text-xs font-semibold uppercase tracking-widest text-[color:var(--color-brand-300)]">
                     Founder · Developer
                   </div>

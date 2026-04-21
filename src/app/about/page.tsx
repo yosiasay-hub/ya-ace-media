@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { ArrowLeft, ArrowRight, CheckCircle2, User } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { ABOUT } from '@/data/about-content';
@@ -137,14 +138,31 @@ export default function AboutPage() {
         <section className="section-y bg-[color:var(--color-brand-50)]/40">
           <div className="container-x">
             <div className="mx-auto max-w-4xl">
-              <div className="flex flex-col items-start gap-8 sm:flex-row">
-                <div
-                  aria-hidden
-                  className="flex h-28 w-28 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-[color:var(--color-brand-600)] to-[color:var(--color-brand-900)] text-white shadow-xl"
-                >
-                  <User className="h-12 w-12" />
+              <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14">
+                {/* Portrait */}
+                <div className="lg:col-span-5">
+                  <div className="relative mx-auto aspect-[4/5] w-full max-w-sm">
+                    {/* Tilted backdrop card */}
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 -rotate-3 rounded-[2rem] bg-gradient-to-br from-[color:var(--color-brand-500)] via-[color:var(--color-brand-700)] to-[color:var(--color-ink-950)] shadow-2xl shadow-[color:var(--color-brand-900)]/30"
+                    />
+                    {/* Photo frame */}
+                    <div className="relative h-full w-full overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-[color:var(--color-ink-900)]/10">
+                      <Image
+                        src="/yossi-founder.jpg"
+                        alt={`${ABOUT.founder.name} — ${ABOUT.founder.role[SITE_LOCALE]}`}
+                        fill
+                        priority
+                        sizes="(min-width: 1024px) 420px, (min-width: 640px) 360px, 90vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="flex-1">
+
+                {/* Copy */}
+                <div className="lg:col-span-7">
                   <h2 className="text-2xl font-bold text-[color:var(--color-ink-900)] sm:text-3xl">
                     {ABOUT.founder.name}
                   </h2>
