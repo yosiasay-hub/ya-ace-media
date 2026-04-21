@@ -18,7 +18,9 @@ const nextConfig = {
   trailingSlash: true,
   ...(isEnglishBuild ? { basePath: '/en', assetPrefix: '/en' } : {}),
   experimental: {
-    optimizePackageImports: ['lucide-react', 'motion']
+    optimizePackageImports: ['lucide-react', 'motion'],
+    // Inline critical CSS via Critters/Beasties → removes render-blocking stylesheet link.
+    optimizeCss: true
   },
   // Turbopack (Next 16 default) — alias Next's polyfill-module to an empty stub.
   // Our browserslist targets ES2022+ browsers that already support all of these
